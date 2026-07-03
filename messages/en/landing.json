@@ -1,0 +1,111 @@
+{
+  "hero": {
+    "badge": "Built for Junior Academy of Sciences (МАН) research",
+    "title": "Find, evaluate and write scientific research with a research partner that never fabricates a source.",
+    "subtitle": "Search six scientific databases at once, get an explained AI credibility score for every source, analyze PDFs, and get guidance grounded in official МАН requirements — never a fabricated citation.",
+    "ctaPrimary": "Start Research",
+    "ctaSecondary": "See how it works",
+    "footnote": "Free to start · No credit card required"
+  },
+  "features": {
+    "title": "Everything a research workflow needs",
+    "subtitle": "One workspace instead of a dozen browser tabs, spreadsheets and citation managers.",
+    "search": {
+      "title": "Scientific Search",
+      "description": "Query OpenAlex, CrossRef, Semantic Scholar, arXiv, PubMed and DOAJ at once. Results are deduplicated and ranked by relevance."
+    },
+    "evaluation": {
+      "title": "AI Source Evaluation",
+      "description": "Every source gets a credibility, relevance and recency score with a written explanation and a clear recommendation."
+    },
+    "pdfAnalyzer": {
+      "title": "PDF Analyzer",
+      "description": "Upload a paper and get an extracted summary, methods, findings, strengths, weaknesses and suggested citations."
+    },
+    "bibliography": {
+      "title": "Bibliography Checker",
+      "description": "Catch duplicate, outdated and non-scientific references before submission, with concrete fixes for each issue."
+    },
+    "assistant": {
+      "title": "AI Research Assistant",
+      "description": "Ask about methodology, structure, citations or defense preparation. Answers about МАН rules are grounded in the official documentation."
+    },
+    "library": {
+      "title": "Personal Library",
+      "description": "Save articles, organize research projects, and keep notes, files and bibliography together in one workspace."
+    }
+  },
+  "howItWorks": {
+    "title": "How it works",
+    "subtitle": "From a blank topic to a defensible research project.",
+    "step1": {
+      "title": "Search",
+      "description": "Describe your topic once. We query six scientific databases in parallel and merge the results into a single ranked list."
+    },
+    "step2": {
+      "title": "Evaluate",
+      "description": "Ask the AI to score any source on credibility, relevance and recency — with a plain-language explanation for every score."
+    },
+    "step3": {
+      "title": "Organize",
+      "description": "Save sources, upload PDFs and build your bibliography inside a project workspace instead of scattered files."
+    },
+    "step4": {
+      "title": "Write & defend",
+      "description": "Get a research structure outline and ask the AI assistant about methodology, formatting and МАН defense requirements."
+    }
+  },
+  "aiCapabilities": {
+    "title": "AI you can cite with confidence",
+    "subtitle": "Academic integrity is the whole point. Every AI module in the platform follows the same safety rules, whether it's evaluating a source or answering a question about МАН requirements.",
+    "principle1": "Never fabricates references, DOIs or citation quotations",
+    "principle2": "Clearly separates verified facts from its own recommendations",
+    "principle3": "Explains every score and every conclusion it gives you",
+    "principle4": "Answers about МАН rules are grounded in the official uploaded documentation, not guesses",
+    "principle5": "Says explicitly when it doesn't know something, instead of inventing an answer",
+    "principle6": "Teaches the research process — it will not write your paper for you"
+  },
+  "faq": {
+    "title": "Frequently asked questions",
+    "q1": {
+      "question": "Is this only for МАН participants?",
+      "answer": "No. The platform works for any student or researcher writing a research paper. It includes a dedicated МАН Expert mode for participants who need to follow the official Junior Academy of Sciences requirements."
+    },
+    "q2": {
+      "question": "Will the AI write my paper for me?",
+      "answer": "No. The AI explains concepts, evaluates sources and gives structural guidance, but it will not generate a full paper on your behalf — the platform is built to teach research skills, not replace them."
+    },
+    "q3": {
+      "question": "Which databases does the search cover?",
+      "answer": "OpenAlex, CrossRef, Semantic Scholar, arXiv, PubMed and DOAJ. Results from all six are merged, deduplicated and ranked into a single list."
+    },
+    "q4": {
+      "question": "How does the AI avoid inventing sources or rules?",
+      "answer": "Every AI module follows the same safety rules: it never fabricates references, DOIs or quotations, and it never invents МАН rules — it grounds its answers to МАН-specific questions in the official uploaded documentation and says so explicitly when something isn't covered there."
+    },
+    "q5": {
+      "question": "Is it free to use?",
+      "answer": "You can register and use core research and search features for free. A premium tier with unlimited AI usage and advanced analysis is available for heavier workloads."
+    }
+  },
+  "cta": {
+    "title": "Start your research today",
+    "subtitle": "Create a free account and search your first topic in under a minute.",
+    "button": "Start Research"
+  },
+  "footer": {
+    "productHeading": "Product",
+    "accountHeading": "Account",
+    "productLinks": {
+      "features": "Features",
+      "howItWorks": "How it works",
+      "aiCapabilities": "AI capabilities",
+      "faq": "FAQ"
+    },
+    "accountLinks": {
+      "signIn": "Sign in",
+      "createAccount": "Create account"
+    },
+    "copyright": "© {year} AI Research Assistant. Built for students, researchers and Junior Academy of Sciences participants."
+  }
+}
