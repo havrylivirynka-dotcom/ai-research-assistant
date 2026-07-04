@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { register } from "@/features/auth/actions";
 import { initialActionState } from "@/features/auth/types";
-import { GoogleButton } from "@/features/auth/components/google-button";
 import { FieldError } from "@/features/auth/components/field-error";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -39,14 +38,6 @@ export function RegisterForm() {
           {t("title")}
         </h1>
         <p className="text-sm text-muted-foreground">{t("subtitle")}</p>
-      </div>
-
-      <GoogleButton />
-
-      <div className="flex items-center gap-3 text-xs text-muted-foreground">
-        <div className="h-px flex-1 bg-border" />
-        {t("orDivider")}
-        <div className="h-px flex-1 bg-border" />
       </div>
 
       <form action={formAction} className="space-y-4">
