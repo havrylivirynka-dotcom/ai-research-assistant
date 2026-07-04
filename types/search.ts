@@ -30,9 +30,9 @@ export type NormalizedArticle = {
   language: string | null;
   articleType: string | null;
   /** ISO-ish country name/code of the publisher or journal, when the provider exposes it. */
-  country: string | null;
+  country?: string | null;
   /** Subject/topic labels the provider attaches to the work, if any. */
-  subjectAreas: string[];
+  subjectAreas?: string[];
   sourceProviders: SearchProvider[];
   relevanceRank: number;
 };
