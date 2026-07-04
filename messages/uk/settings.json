@@ -1,1 +1,25 @@
-{}
+{
+  "settings": {
+    "title": "Налаштування",
+    "subtitle": "Керуйте своїм профілем і вподобаннями.",
+    "profileSection": "Профіль",
+    "changeAvatar": "Змінити аватар",
+    "uploadingAvatar": "Завантаження...",
+    "fullNameLabel": "Повне ім'я",
+    "emailLabel": "Електронна пошта",
+    "preferencesSection": "Вподобання",
+    "themeLabel": "Тема",
+    "themeLight": "Світла",
+    "themeDark": "Темна",
+    "themeSystem": "Системна",
+    "languageLabel": "Мова",
+    "languageUk": "Українська",
+    "languageEn": "English",
+    "planSection": "Тарифний план",
+    "planFree": "Безкоштовний",
+    "planPremium": "Преміум",
+    "avatarUploadError": "Не вдалося завантажити аватар.",
+    "saveError": "Не вдалося зберегти налаштування.",
+    "saveSuccess": "Налаштування збережено."
+  }
+}

@@ -19,13 +19,30 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+const APP_DESCRIPTION =
+  "AI-powered platform for finding, evaluating and using scientific literature — built for students, researchers and Junior Academy of Sciences (МАН) participants.";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(APP_URL),
   title: {
     default: "AI Research Assistant",
     template: "%s · AI Research Assistant",
   },
-  description:
-    "AI-powered platform for finding, evaluating and using scientific literature — built for students, researchers and Junior Academy of Sciences (МАН) participants.",
+  description: APP_DESCRIPTION,
+  icons: { icon: "/favicon.ico" },
+  openGraph: {
+    type: "website",
+    siteName: "AI Research Assistant",
+    title: "AI Research Assistant",
+    description: APP_DESCRIPTION,
+    url: APP_URL,
+  },
+  twitter: {
+    card: "summary",
+    title: "AI Research Assistant",
+    description: APP_DESCRIPTION,
+  },
 };
 
 export default async function RootLayout({

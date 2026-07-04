@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FileText } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { listUploads } from "@/features/uploads/queries";
 import { UploadStatusBadge } from "@/features/uploads/components/upload-status-badge";
@@ -8,16 +9,17 @@ import { UploadStatusBadge } from "@/features/uploads/components/upload-status-b
 export const metadata: Metadata = { title: "Uploads" };
 
 export default async function UploadsPage() {
+  const t = await getTranslations("uploads");
   const supabase = await createClient();
   const { data: uploads } = await listUploads(supabase);
 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold tracking-tight">Uploads</h1>
-        <p className="text-muted-foreground">
-          Every PDF you&apos;ve uploaded for AI analysis, across all projects.
-        </p>
+        <h1 className="text-2xl font-semibold tracking-tight">
+          {t("title")}
+        </h1>
+        <p className="text-muted-foreground">{t("subtitle")}</p>
       </div>
 
       {uploads && uploads.length > 0 ? (
@@ -33,7 +35,7 @@ export default async function UploadsPage() {
                   {upload.file_name}
                 </p>
                 <p className="text-xs text-muted-foreground">
-                  {upload.projects?.title ?? "Unknown project"} ·{" "}
+                  {upload.projects?.title ?? t("unknownProject")} ·{" "}
                   {new Date(upload.uploaded_at).toLocaleDateString()}
                 </p>
               </div>
@@ -46,16 +48,15 @@ export default async function UploadsPage() {
           <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
             <FileText className="size-6" />
           </div>
-          <h2 className="mt-4 text-lg font-semibold">No uploads yet</h2>
+          <h2 className="mt-4 text-lg font-semibold">{t("emptyTitle")}</h2>
           <p className="mt-1 max-w-sm text-sm text-muted-foreground">
-            Open a project and upload a PDF to get an AI-generated summary,
-            strengths, weaknesses and suggested citations.
+            {t("emptyDescription")}
           </p>
           <Link
             href="/projects"
             className="mt-6 text-sm font-medium text-primary hover:underline"
           >
-            Go to projects
+            {t("goToProjects")}
           </Link>
         </div>
       )}

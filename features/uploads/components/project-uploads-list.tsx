@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { UploadDropzone } from "./upload-dropzone";
 import { UploadStatusBadge } from "./upload-status-badge";
@@ -6,17 +7,19 @@ import type { Database } from "@/types/database";
 
 type Upload = Database["public"]["Tables"]["uploads"]["Row"];
 
-export function ProjectUploadsList({
+export async function ProjectUploadsList({
   projectId,
   uploads,
 }: {
   projectId: string;
   uploads: Upload[];
 }) {
+  const t = await getTranslations("projectUploadsList");
+
   return (
     <Card className="border-border/60">
       <CardHeader>
-        <CardTitle className="text-base">Uploads</CardTitle>
+        <CardTitle className="text-base">{t("title")}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <UploadDropzone projectId={projectId} />

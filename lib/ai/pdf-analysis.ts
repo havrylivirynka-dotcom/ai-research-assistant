@@ -2,12 +2,16 @@ import "server-only";
 import { AI_MODEL, getOpenAiClient } from "./client";
 import { pdfAnalysisSchema, pdfAnalysisJsonSchema } from "./schemas";
 import {
-  PDF_ANALYZER_SYSTEM_PROMPT,
+  getPdfAnalyzerSystemPrompt,
   buildPdfAnalyzerUserPrompt,
 } from "@/prompts/pdf-analyzer";
 import type { PdfAnalysis } from "./schemas";
+import type { Locale } from "@/i18n/locale";
 
-export async function analyzePdfText(extractedText: string): Promise<{
+export async function analyzePdfText(
+  extractedText: string,
+  locale: Locale,
+): Promise<{
   analysis: PdfAnalysis;
   inputTokens: number;
   outputTokens: number;
@@ -17,7 +21,7 @@ export async function analyzePdfText(extractedText: string): Promise<{
   const response = await client.responses.create({
     model: AI_MODEL,
     input: [
-      { role: "system", content: PDF_ANALYZER_SYSTEM_PROMPT },
+      { role: "system", content: getPdfAnalyzerSystemPrompt(locale) },
       { role: "user", content: buildPdfAnalyzerUserPrompt(extractedText) },
     ],
     text: {

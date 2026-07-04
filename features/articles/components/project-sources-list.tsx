@@ -1,32 +1,35 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { BookOpen } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Database } from "@/types/database";
 
 type SavedArticle = Database["public"]["Tables"]["saved_articles"]["Row"];
 
-export function ProjectSourcesList({
+export async function ProjectSourcesList({
   projectId,
   articles,
 }: {
   projectId: string;
   articles: SavedArticle[];
 }) {
+  const t = await getTranslations("articles.sourcesList");
+
   return (
     <Card className="border-border/60">
       <CardHeader>
-        <CardTitle className="text-base">Sources</CardTitle>
+        <CardTitle className="text-base">{t("title")}</CardTitle>
       </CardHeader>
       <CardContent>
         {articles.length === 0 ? (
           <div className="flex flex-col items-center gap-2 py-8 text-center">
             <BookOpen className="size-6 text-muted-foreground" />
             <p className="text-sm text-muted-foreground">
-              No sources saved yet.{" "}
+              {t("empty")}{" "}
               <Link href="/search" className="font-medium text-foreground">
-                Search the literature
-              </Link>{" "}
-              to add some.
+                {t("searchLiterature")}
+              </Link>
+              {t("emptySuffix")}
             </p>
           </div>
         ) : (

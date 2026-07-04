@@ -5,12 +5,16 @@ import {
   researchStructureJsonSchema,
 } from "./schemas";
 import {
-  STRUCTURE_GENERATOR_SYSTEM_PROMPT,
+  getStructureGeneratorSystemPrompt,
   buildStructureGeneratorUserPrompt,
 } from "@/prompts/structure-generator";
 import type { ResearchStructure } from "./schemas";
+import type { Locale } from "@/i18n/locale";
 
-export async function generateResearchStructure(topic: string): Promise<{
+export async function generateResearchStructure(
+  topic: string,
+  locale: Locale,
+): Promise<{
   structure: ResearchStructure;
   inputTokens: number;
   outputTokens: number;
@@ -20,7 +24,7 @@ export async function generateResearchStructure(topic: string): Promise<{
   const response = await client.responses.create({
     model: AI_MODEL,
     input: [
-      { role: "system", content: STRUCTURE_GENERATOR_SYSTEM_PROMPT },
+      { role: "system", content: getStructureGeneratorSystemPrompt(locale) },
       { role: "user", content: buildStructureGeneratorUserPrompt(topic) },
     ],
     text: {

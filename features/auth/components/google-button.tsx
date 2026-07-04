@@ -1,7 +1,12 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { signInWithGoogle } from "@/features/auth/actions";
 import { Button } from "@/components/ui/button";
 
 export function GoogleButton() {
+  const t = useTranslations("googleButton");
+
   return (
     <form action={signInWithGoogle}>
       <Button type="submit" variant="outline" className="w-full">
@@ -23,7 +28,7 @@ export function GoogleButton() {
             d="M12 4.75c1.76 0 3.34.61 4.58 1.79l3.44-3.44C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.28 6.6l4.01 3.11C6.23 6.86 8.88 4.75 12 4.75z"
           />
         </svg>
-        Continue with Google
+        {t("label")}
       </Button>
     </form>
   );

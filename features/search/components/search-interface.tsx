@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Search as SearchIcon, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,6 +20,7 @@ export function SearchInterface({
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const t = useTranslations("search");
 
   const [query, setQuery] = useState(initialQuery);
   const [filters, setFilters] = useState<FiltersValue>({});
@@ -55,7 +57,7 @@ export function SearchInterface({
 
     if (!response.ok) {
       const body = await response.json().catch(() => null);
-      setError(body?.error?.message ?? "Search failed. Please try again.");
+      setError(body?.error?.message ?? t("searchFailed"));
       return;
     }
 
@@ -80,13 +82,13 @@ export function SearchInterface({
           <Input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search scientific literature — e.g. microplastics in freshwater ecosystems"
+            placeholder={t("placeholder")}
             className="pl-9"
           />
         </div>
         <SearchFiltersPopover value={filters} onChange={setFilters} />
         <Button type="submit" disabled={isLoading}>
-          Search
+          {t("searchButton")}
         </Button>
       </form>
 
@@ -104,7 +106,7 @@ export function SearchInterface({
         <>
           {results.length === 0 ? (
             <p className="py-12 text-center text-sm text-muted-foreground">
-              No results found. Try a different query or loosen your filters.
+              {t("noResults")}
             </p>
           ) : (
             <div className="space-y-4">
@@ -122,16 +124,18 @@ export function SearchInterface({
               onClick={() => runSearch(query, page - 1)}
             >
               <ChevronLeft className="size-4" />
-              Previous
+              {t("previous")}
             </Button>
-            <span className="text-sm text-muted-foreground">Page {page}</span>
+            <span className="text-sm text-muted-foreground">
+              {t("page", { page })}
+            </span>
             <Button
               variant="outline"
               size="sm"
               disabled={results.length === 0 || isLoading}
               onClick={() => runSearch(query, page + 1)}
             >
-              Next
+              {t("next")}
               <ChevronRight className="size-4" />
             </Button>
           </div>
@@ -140,8 +144,7 @@ export function SearchInterface({
 
       {!isLoading && results === null && (
         <p className="py-16 text-center text-sm text-muted-foreground">
-          Search OpenAlex, CrossRef, Semantic Scholar, arXiv, PubMed and DOAJ
-          at once.
+          {t("emptyState")}
         </p>
       )}
     </div>

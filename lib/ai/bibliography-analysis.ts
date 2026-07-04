@@ -5,12 +5,16 @@ import {
   bibliographyAnalysisJsonSchema,
 } from "./schemas";
 import {
-  BIBLIOGRAPHY_CHECKER_SYSTEM_PROMPT,
+  getBibliographyCheckerSystemPrompt,
   buildBibliographyCheckerUserPrompt,
 } from "@/prompts/bibliography-checker";
 import type { BibliographyAnalysis } from "./schemas";
+import type { Locale } from "@/i18n/locale";
 
-export async function analyzeBibliography(references: string[]): Promise<{
+export async function analyzeBibliography(
+  references: string[],
+  locale: Locale,
+): Promise<{
   analysis: BibliographyAnalysis;
   inputTokens: number;
   outputTokens: number;
@@ -20,7 +24,7 @@ export async function analyzeBibliography(references: string[]): Promise<{
   const response = await client.responses.create({
     model: AI_MODEL,
     input: [
-      { role: "system", content: BIBLIOGRAPHY_CHECKER_SYSTEM_PROMPT },
+      { role: "system", content: getBibliographyCheckerSystemPrompt(locale) },
       { role: "user", content: buildBibliographyCheckerUserPrompt(references) },
     ],
     text: {

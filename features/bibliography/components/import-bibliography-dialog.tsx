@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Upload } from "lucide-react";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -20,6 +21,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export function ImportBibliographyDialog({ projectId }: { projectId: string }) {
   const router = useRouter();
+  const t = useTranslations("importBibliographyDialog");
   const [open, setOpen] = useState(false);
   const [tab, setTab] = useState("paste");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -38,15 +40,15 @@ export function ImportBibliographyDialog({ projectId }: { projectId: string }) {
 
     if (!response.ok) {
       const body = await response.json().catch(() => null);
-      toast.error(body?.error?.message ?? "Could not import references.");
+      toast.error(body?.error?.message ?? t("errorFallback"));
       return;
     }
 
     const body = await response.json();
     toast.success(
       body.analysis
-        ? `Imported and analyzed ${body.imported} references.`
-        : `Imported ${body.imported} references. AI analysis is unavailable.`,
+        ? t("successWithAnalysis", { count: body.imported })
+        : t("successWithoutAnalysis", { count: body.imported }),
     );
     setOpen(false);
     setText("");
@@ -58,42 +60,38 @@ export function ImportBibliographyDialog({ projectId }: { projectId: string }) {
       <DialogTrigger asChild>
         <Button variant="outline">
           <Upload className="size-4" />
-          Import
+          {t("trigger")}
         </Button>
       </DialogTrigger>
       <DialogContent className="flex max-h-[85vh] flex-col gap-0 overflow-hidden p-0 sm:max-w-lg">
         <DialogHeader className="shrink-0 border-b px-6 py-4">
-          <DialogTitle>Import bibliography</DialogTitle>
-          <DialogDescription>
-            Paste references (one per line) or upload a DOCX, PDF or text
-            file. Each reference will be checked for duplicates, outdated
-            sources and formatting issues.
-          </DialogDescription>
+          <DialogTitle>{t("title")}</DialogTitle>
+          <DialogDescription>{t("description")}</DialogDescription>
         </DialogHeader>
 
         <div className="flex-1 overflow-y-auto px-6 py-5">
           <Tabs value={tab} onValueChange={setTab}>
             <TabsList>
-              <TabsTrigger value="paste">Paste text</TabsTrigger>
-              <TabsTrigger value="file">Upload file</TabsTrigger>
+              <TabsTrigger value="paste">{t("tabPaste")}</TabsTrigger>
+              <TabsTrigger value="file">{t("tabFile")}</TabsTrigger>
             </TabsList>
 
             <TabsContent value="paste" className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="references">References</Label>
+                <Label htmlFor="references">{t("referencesLabel")}</Label>
                 <Textarea
                   id="references"
                   rows={8}
                   value={text}
                   onChange={(e) => setText(e.target.value)}
-                  placeholder={"Smith, J. (2020). Title of the paper. Journal Name.\nDoe, A. (2019). Another title. Publisher."}
+                  placeholder={t("referencesPlaceholder")}
                 />
               </div>
             </TabsContent>
 
             <TabsContent value="file" className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="bibFile">File</Label>
+                <Label htmlFor="bibFile">{t("fileLabel")}</Label>
                 <input
                   id="bibFile"
                   type="file"
@@ -110,7 +108,7 @@ export function ImportBibliographyDialog({ projectId }: { projectId: string }) {
                 />
                 {isSubmitting && (
                   <p className="text-sm text-muted-foreground">
-                    Importing and analyzing...
+                    {t("importingAndAnalyzing")}
                   </p>
                 )}
               </div>
@@ -128,7 +126,7 @@ export function ImportBibliographyDialog({ projectId }: { projectId: string }) {
                 submit(formData);
               }}
             >
-              {isSubmitting ? "Importing..." : "Import & analyze"}
+              {isSubmitting ? t("importing") : t("submit")}
             </Button>
           </DialogFooter>
         )}

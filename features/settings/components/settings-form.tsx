@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -53,6 +54,8 @@ export function SettingsForm({
   const router = useRouter();
   const { setTheme } = useTheme();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const t = useTranslations("settings");
+  const tCommon = useTranslations("common");
 
   const [fullName, setFullName] = useState(profile.full_name ?? "");
   const [avatarUrl, setAvatarUrl] = useState(profile.avatar_url);
@@ -74,7 +77,7 @@ export function SettingsForm({
       .upload(path, file, { upsert: true });
 
     if (uploadError) {
-      toast.error("Could not upload avatar.");
+      toast.error(t("avatarUploadError"));
       setIsUploadingAvatar(false);
       return;
     }
@@ -101,12 +104,12 @@ export function SettingsForm({
     setIsSaving(false);
 
     if (!response.ok) {
-      toast.error("Could not save settings.");
+      toast.error(t("saveError"));
       return;
     }
 
     setTheme(theme);
-    toast.success("Settings saved.");
+    toast.success(t("saveSuccess"));
     router.refresh();
   }
 
@@ -114,7 +117,7 @@ export function SettingsForm({
     <div className="max-w-xl space-y-8">
       <section className="space-y-4">
         <h2 className="text-sm font-semibold text-muted-foreground">
-          Profile
+          {t("profileSection")}
         </h2>
 
         <div className="flex items-center gap-4">
@@ -136,13 +139,13 @@ export function SettingsForm({
               onClick={() => fileInputRef.current?.click()}
               disabled={isUploadingAvatar}
             >
-              {isUploadingAvatar ? "Uploading..." : "Change avatar"}
+              {isUploadingAvatar ? t("uploadingAvatar") : t("changeAvatar")}
             </Button>
           </div>
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="fullName">Full name</Label>
+          <Label htmlFor="fullName">{t("fullNameLabel")}</Label>
           <Input
             id="fullName"
             value={fullName}
@@ -151,53 +154,55 @@ export function SettingsForm({
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email">{t("emailLabel")}</Label>
           <Input id="email" value={profile.email} disabled />
         </div>
       </section>
 
       <section className="space-y-4">
         <h2 className="text-sm font-semibold text-muted-foreground">
-          Preferences
+          {t("preferencesSection")}
         </h2>
 
         <div className="space-y-2">
-          <Label htmlFor="theme">Theme</Label>
+          <Label htmlFor="theme">{t("themeLabel")}</Label>
           <Select value={theme} onValueChange={setThemeValue}>
             <SelectTrigger id="theme" className="w-56">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="light">Light</SelectItem>
-              <SelectItem value="dark">Dark</SelectItem>
-              <SelectItem value="system">System</SelectItem>
+              <SelectItem value="light">{t("themeLight")}</SelectItem>
+              <SelectItem value="dark">{t("themeDark")}</SelectItem>
+              <SelectItem value="system">{t("themeSystem")}</SelectItem>
             </SelectContent>
           </Select>
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="language">Language</Label>
+          <Label htmlFor="language">{t("languageLabel")}</Label>
           <Select value={language} onValueChange={setLanguage}>
             <SelectTrigger id="language" className="w-56">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="uk">Українська</SelectItem>
-              <SelectItem value="en">English</SelectItem>
+              <SelectItem value="uk">{t("languageUk")}</SelectItem>
+              <SelectItem value="en">{t("languageEn")}</SelectItem>
             </SelectContent>
           </Select>
         </div>
       </section>
 
       <section className="space-y-2">
-        <h2 className="text-sm font-semibold text-muted-foreground">Plan</h2>
+        <h2 className="text-sm font-semibold text-muted-foreground">
+          {t("planSection")}
+        </h2>
         <p className="text-sm">
-          {settings.plan === "premium" ? "Premium" : "Free"}
+          {settings.plan === "premium" ? t("planPremium") : t("planFree")}
         </p>
       </section>
 
       <Button onClick={handleSave} disabled={isSaving}>
-        {isSaving ? "Saving..." : "Save changes"}
+        {isSaving ? tCommon("saving") : tCommon("saveChanges")}
       </Button>
     </div>
   );

@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { cn } from "@/lib/utils";
 
 export const UPLOAD_STATUS_CLASSES: Record<string, string> = {
@@ -6,7 +7,9 @@ export const UPLOAD_STATUS_CLASSES: Record<string, string> = {
   failed: "bg-destructive/15 text-destructive",
 };
 
-export function UploadStatusBadge({ status }: { status: string }) {
+export async function UploadStatusBadge({ status }: { status: string }) {
+  const t = await getTranslations("uploadStatus");
+
   return (
     <span
       className={cn(
@@ -14,7 +17,7 @@ export function UploadStatusBadge({ status }: { status: string }) {
         UPLOAD_STATUS_CLASSES[status] ?? "bg-muted text-muted-foreground",
       )}
     >
-      {status}
+      {status in UPLOAD_STATUS_CLASSES ? t(status as "processing" | "completed" | "failed") : status}
     </span>
   );
 }

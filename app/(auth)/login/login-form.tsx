@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { login } from "@/features/auth/actions";
 import { initialActionState } from "@/features/auth/types";
 import { GoogleButton } from "@/features/auth/components/google-button";
@@ -19,21 +20,22 @@ export function LoginForm() {
   );
   const searchParams = useSearchParams();
   const next = searchParams.get("next") ?? "";
+  const t = useTranslations("login");
 
   return (
     <div className="space-y-6">
       <div className="space-y-1 text-center">
-        <h1 className="text-2xl font-semibold tracking-tight">Sign in</h1>
-        <p className="text-sm text-muted-foreground">
-          Welcome back. Enter your details to continue.
-        </p>
+        <h1 className="text-2xl font-semibold tracking-tight">
+          {t("title")}
+        </h1>
+        <p className="text-sm text-muted-foreground">{t("subtitle")}</p>
       </div>
 
       <GoogleButton />
 
       <div className="flex items-center gap-3 text-xs text-muted-foreground">
         <div className="h-px flex-1 bg-border" />
-        OR
+        {t("orDivider")}
         <div className="h-px flex-1 bg-border" />
       </div>
 
@@ -47,7 +49,7 @@ export function LoginForm() {
         )}
 
         <div className="space-y-2">
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email">{t("emailLabel")}</Label>
           <Input
             id="email"
             name="email"
@@ -60,12 +62,12 @@ export function LoginForm() {
 
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">{t("passwordLabel")}</Label>
             <Link
               href="/reset-password"
               className="text-xs text-muted-foreground hover:text-foreground"
             >
-              Forgot password?
+              {t("forgotPassword")}
             </Link>
           </div>
           <Input
@@ -79,14 +81,14 @@ export function LoginForm() {
         </div>
 
         <Button type="submit" className="w-full" disabled={isPending}>
-          {isPending ? "Signing in..." : "Sign in"}
+          {isPending ? t("submitting") : t("submit")}
         </Button>
       </form>
 
       <p className="text-center text-sm text-muted-foreground">
-        Don&apos;t have an account?{" "}
+        {t("noAccount")}{" "}
         <Link href="/register" className="font-medium text-foreground">
-          Create one
+          {t("createOne")}
         </Link>
       </p>
     </div>

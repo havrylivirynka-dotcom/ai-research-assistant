@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import {
   getRecentProjects,
@@ -17,6 +18,7 @@ import { CreateProjectDialog } from "@/features/projects/components/create-proje
 export const metadata: Metadata = { title: "Dashboard" };
 
 export default async function DashboardPage() {
+  const t = await getTranslations("dashboard");
   const supabase = await createClient();
   const {
     data: { user },
@@ -45,11 +47,9 @@ export default async function DashboardPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">
-            Welcome, {firstName}
+            {t("welcomeTitle", { name: firstName })}
           </h1>
-          <p className="text-muted-foreground">
-            Here&apos;s what&apos;s happening across your research.
-          </p>
+          <p className="text-muted-foreground">{t("subtitle")}</p>
         </div>
         <CreateProjectDialog />
       </div>

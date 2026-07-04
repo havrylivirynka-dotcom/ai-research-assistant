@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { getUpload } from "@/features/uploads/queries";
 import { UploadStatusBadge } from "@/features/uploads/components/upload-status-badge";
@@ -19,6 +20,7 @@ export async function generateMetadata({
 }
 
 export default async function UploadDetailPage({ params }: PageProps) {
+  const t = await getTranslations("uploadDetail");
   const { id, uploadId } = await params;
   const supabase = await createClient();
   const { data: upload, error } = await getUpload(supabase, uploadId);
@@ -34,7 +36,7 @@ export default async function UploadDetailPage({ params }: PageProps) {
         className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
       >
         <ArrowLeft className="size-4" />
-        {upload.projects?.title ?? "Project"}
+        {upload.projects?.title ?? t("projectFallback")}
       </Link>
 
       <div className="flex items-center gap-3">

@@ -1,1 +1,32 @@
-{}
+{
+  "chat": {
+    "title": "AI-помічник",
+    "chooseProjectSubtitle": "Оберіть проєкт, щоб почати діалог — розмови зберігаються окремо для кожного проєкту.",
+    "noProjectsTitle": "Поки що немає проєктів",
+    "noProjectsDescription": "Спершу створіть проєкт, а тоді обговорюйте його з AI-помічником.",
+    "goToProjects": "Перейти до проєктів",
+    "conversations": "Розмови",
+    "newChat": "Новий чат",
+    "noConversations": "Поки що немає розмов.",
+    "newConversation": "Нова розмова",
+    "deleteChat": "Видалити чат",
+    "deleteChatFailed": "Не вдалося видалити цей чат.",
+    "showConversations": "Показати розмови",
+    "emptyStatePrompt": "Запитайте про методологію, структуру, джерела або правила МАН.",
+    "askPlaceholder": "Постав запитання...",
+    "sendMessage": "Надіслати повідомлення",
+    "aiResponseFailed": "Не вдалося отримати відповідь AI.",
+    "copyResponse": "Копіювати відповідь",
+    "sectionRef": "Розділ {section}",
+    "modeSelector": {
+      "researchAssistant": "AI-помічник",
+      "manExpert": "Експерт МАН"
+    },
+    "suggestedPrompts": {
+      "explainMethodology": "Пояснити методологію",
+      "improveIntroduction": "Покращити вступ",
+      "checkBibliography": "Перевірити бібліографію",
+      "explainManRules": "Пояснити правила МАН"
+    }
+  }
+}

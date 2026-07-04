@@ -1,17 +1,20 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { WidgetCard, WidgetEmptyState } from "./widget-card";
 
 type SearchHistoryRow = { id: string; query: string };
 
-export function RecentSearchesWidget({
+export async function RecentSearchesWidget({
   searches,
 }: {
   searches: SearchHistoryRow[];
 }) {
+  const t = await getTranslations("recentSearchesWidget");
+
   return (
-    <WidgetCard title="Recent searches" viewAllHref="/search">
+    <WidgetCard title={t("title")} viewAllHref="/search">
       {searches.length === 0 ? (
-        <WidgetEmptyState message="Your scientific search queries will show up here." />
+        <WidgetEmptyState message={t("emptyState")} />
       ) : (
         <ul className="space-y-3">
           {searches.map((search) => (

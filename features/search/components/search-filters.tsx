@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { SlidersHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,6 +22,7 @@ export function SearchFiltersPopover({
   value: FiltersValue;
   onChange: (next: FiltersValue) => void;
 }) {
+  const t = useTranslations("filters");
   const activeCount = Object.values(value).filter(
     (v) => v !== undefined && v !== "",
   ).length;
@@ -30,7 +32,7 @@ export function SearchFiltersPopover({
       <PopoverTrigger asChild>
         <Button variant="outline">
           <SlidersHorizontal className="size-4" />
-          Filters
+          {t("trigger")}
           {activeCount > 0 && (
             <span className="ml-1 flex size-4 items-center justify-center rounded-full bg-primary text-[10px] text-primary-foreground">
               {activeCount}
@@ -41,7 +43,7 @@ export function SearchFiltersPopover({
       <PopoverContent className="w-80 space-y-4" align="end">
         <div className="grid grid-cols-2 gap-3">
           <div className="space-y-1.5">
-            <Label htmlFor="yearFrom">From year</Label>
+            <Label htmlFor="yearFrom">{t("yearFrom")}</Label>
             <Input
               id="yearFrom"
               type="number"
@@ -56,7 +58,7 @@ export function SearchFiltersPopover({
             />
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="yearTo">To year</Label>
+            <Label htmlFor="yearTo">{t("yearTo")}</Label>
             <Input
               id="yearTo"
               type="number"
@@ -73,7 +75,7 @@ export function SearchFiltersPopover({
         </div>
 
         <div className="space-y-1.5">
-          <Label htmlFor="minCitations">Minimum citations</Label>
+          <Label htmlFor="minCitations">{t("minCitations")}</Label>
           <Input
             id="minCitations"
             type="number"
@@ -92,7 +94,7 @@ export function SearchFiltersPopover({
         </div>
 
         <div className="space-y-1.5">
-          <Label htmlFor="language">Language code</Label>
+          <Label htmlFor="language">{t("language")}</Label>
           <Input
             id="language"
             placeholder="en"
@@ -112,7 +114,7 @@ export function SearchFiltersPopover({
             }
           />
           <Label htmlFor="openAccess" className="font-normal">
-            Open access only
+            {t("openAccessOnly")}
           </Label>
         </div>
 
@@ -123,7 +125,7 @@ export function SearchFiltersPopover({
             className="w-full"
             onClick={() => onChange({})}
           >
-            Clear filters
+            {t("clear")}
           </Button>
         )}
       </PopoverContent>

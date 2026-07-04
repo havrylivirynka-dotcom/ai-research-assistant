@@ -1,1 +1,46 @@
-{}
+{
+  "uploads": {
+    "title": "Uploads",
+    "subtitle": "Every PDF you've uploaded for AI analysis, across all projects.",
+    "unknownProject": "Unknown project",
+    "emptyTitle": "No uploads yet",
+    "emptyDescription": "Open a project and upload a PDF to get an AI-generated summary, strengths, weaknesses and suggested citations.",
+    "goToProjects": "Go to projects"
+  },
+  "uploadDetail": {
+    "summaryTab": "Summary",
+    "findingsTab": "Findings",
+    "strengthsTab": "Strengths & Weaknesses",
+    "citationsTab": "Suggested Citations",
+    "keyContributions": "Key contributions",
+    "methods": "Methods",
+    "findings": "Findings",
+    "conclusions": "Conclusions",
+    "strengths": "Strengths",
+    "weaknesses": "Weaknesses",
+    "limitations": "Limitations",
+    "notDescribed": "Not described in the extracted text.",
+    "noLimitationsStated": "None stated by the authors.",
+    "noCitationSuggestions": "No citation suggestions for this source.",
+    "analyzing": "Analyzing this PDF — this usually takes under a minute.",
+    "analysisFailed": "Analysis failed for this file. Try deleting it and uploading again.",
+    "noAnalysisAvailable": "This upload completed but no analysis is available.",
+    "projectFallback": "Project"
+  },
+  "uploadDropzone": {
+    "instructions": "Drag & drop a PDF, or click to browse",
+    "maxSize": "Up to {size}MB",
+    "uploading": "Uploading…",
+    "invalidFileType": "Only PDF files are supported.",
+    "uploadFailed": "Could not upload the file.",
+    "uploadStarted": "Upload started — analyzing in the background."
+  },
+  "uploadStatus": {
+    "processing": "Processing",
+    "completed": "Completed",
+    "failed": "Failed"
+  },
+  "projectUploadsList": {
+    "title": "Uploads"
+  }
+}

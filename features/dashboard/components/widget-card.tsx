@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import {
   Card,
   CardContent,
@@ -6,7 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-export function WidgetCard({
+export async function WidgetCard({
   title,
   viewAllHref,
   children,
@@ -15,6 +16,8 @@ export function WidgetCard({
   viewAllHref?: string;
   children: React.ReactNode;
 }) {
+  const t = await getTranslations("common");
+
   return (
     <Card className="border-border/60">
       <CardHeader className="flex-row items-center justify-between space-y-0">
@@ -24,7 +27,7 @@ export function WidgetCard({
             href={viewAllHref}
             className="text-xs font-medium text-muted-foreground hover:text-foreground"
           >
-            View all
+            {t("viewAll")}
           </Link>
         )}
       </CardHeader>

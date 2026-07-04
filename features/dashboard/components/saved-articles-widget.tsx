@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { WidgetCard, WidgetEmptyState } from "./widget-card";
 
 type SavedArticleRow = {
@@ -9,15 +10,17 @@ type SavedArticleRow = {
   projects: { id: string; title: string } | null;
 };
 
-export function SavedArticlesWidget({
+export async function SavedArticlesWidget({
   articles,
 }: {
   articles: SavedArticleRow[];
 }) {
+  const t = await getTranslations("savedArticlesWidget");
+
   return (
-    <WidgetCard title="Saved articles" viewAllHref="/library">
+    <WidgetCard title={t("title")} viewAllHref="/library">
       {articles.length === 0 ? (
-        <WidgetEmptyState message="Sources you save from search will show up here." />
+        <WidgetEmptyState message={t("emptyState")} />
       ) : (
         <ul className="space-y-3">
           {articles.map((article) => (

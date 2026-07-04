@@ -1,1 +1,32 @@
-{}
+{
+  "chat": {
+    "title": "AI Assistant",
+    "chooseProjectSubtitle": "Choose a project to chat about — conversations are saved per project.",
+    "noProjectsTitle": "No projects yet",
+    "noProjectsDescription": "Create a project first, then chat with the AI assistant about it.",
+    "goToProjects": "Go to projects",
+    "conversations": "Conversations",
+    "newChat": "New chat",
+    "noConversations": "No conversations yet.",
+    "newConversation": "New conversation",
+    "deleteChat": "Delete chat",
+    "deleteChatFailed": "Could not delete this chat.",
+    "showConversations": "Show conversations",
+    "emptyStatePrompt": "Ask about methodology, structure, citations, or МАН rules.",
+    "askPlaceholder": "Ask a question...",
+    "sendMessage": "Send message",
+    "aiResponseFailed": "The AI response failed.",
+    "copyResponse": "Copy response",
+    "sectionRef": "Section {section}",
+    "modeSelector": {
+      "researchAssistant": "Research Assistant",
+      "manExpert": "МАН Expert"
+    },
+    "suggestedPrompts": {
+      "explainMethodology": "Explain methodology",
+      "improveIntroduction": "Improve introduction",
+      "checkBibliography": "Check bibliography",
+      "explainManRules": "Explain МАН rules"
+    }
+  }
+}

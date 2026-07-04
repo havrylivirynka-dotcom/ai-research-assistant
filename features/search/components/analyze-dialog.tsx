@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import {
   Sparkles,
   Loader2,
@@ -61,6 +62,8 @@ function EvaluationList({
 }
 
 export function AnalyzeDialog({ article }: { article: NormalizedArticle }) {
+  const t = useTranslations("analyzeDialog");
+  const tArticles = useTranslations("articles");
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -88,7 +91,7 @@ export function AnalyzeDialog({ article }: { article: NormalizedArticle }) {
 
     if (!response.ok) {
       const body = await response.json().catch(() => null);
-      setError(body?.error?.message ?? "Could not evaluate this source.");
+      setError(body?.error?.message ?? t("genericError"));
       return;
     }
 
@@ -106,7 +109,7 @@ export function AnalyzeDialog({ article }: { article: NormalizedArticle }) {
       <DialogTrigger asChild>
         <Button variant="outline" size="sm">
           <Sparkles className="size-4" />
-          Analyze
+          {t("trigger")}
         </Button>
       </DialogTrigger>
       <DialogContent
@@ -123,7 +126,7 @@ export function AnalyzeDialog({ article }: { article: NormalizedArticle }) {
               size="icon-sm"
               className="-mr-2 -mt-0.5 shrink-0"
             >
-              <span className="sr-only">Close</span>
+              <span className="sr-only">{t("close")}</span>
               <X className="size-4" />
             </Button>
           </DialogClose>
@@ -134,7 +137,7 @@ export function AnalyzeDialog({ article }: { article: NormalizedArticle }) {
             <div className="flex flex-col items-center justify-center gap-3 py-12">
               <Loader2 className="size-6 animate-spin text-muted-foreground" />
               <p className="text-sm text-muted-foreground">
-                Analyzing source with AI…
+                {t("analyzing")}
               </p>
             </div>
           )}
@@ -144,7 +147,7 @@ export function AnalyzeDialog({ article }: { article: NormalizedArticle }) {
               <p className="text-sm text-destructive">{error}</p>
               <Button variant="outline" size="sm" onClick={runEvaluation}>
                 <RotateCcw className="size-4" />
-                Try again
+                {t("tryAgain")}
               </Button>
             </div>
           )}
@@ -177,19 +180,19 @@ export function AnalyzeDialog({ article }: { article: NormalizedArticle }) {
                 evaluation.risks.length > 0) && (
                 <div className="space-y-5 border-t pt-5">
                   <EvaluationList
-                    title="Strengths"
+                    title={tArticles("evaluation.strengths")}
                     icon={CircleCheck}
                     iconClassName="text-success"
                     items={evaluation.strengths}
                   />
                   <EvaluationList
-                    title="Weaknesses"
+                    title={tArticles("evaluation.weaknesses")}
                     icon={TriangleAlert}
                     iconClassName="text-warning"
                     items={evaluation.weaknesses}
                   />
                   <EvaluationList
-                    title="Risks"
+                    title={tArticles("evaluation.risks")}
                     icon={ShieldAlert}
                     iconClassName="text-destructive"
                     items={evaluation.risks}
@@ -202,7 +205,7 @@ export function AnalyzeDialog({ article }: { article: NormalizedArticle }) {
 
         <DialogFooter className="shrink-0 mx-0 mb-0 rounded-b-xl border-t bg-muted/50 px-6 py-4">
           <DialogClose asChild>
-            <Button variant="outline">Close</Button>
+            <Button variant="outline">{t("close")}</Button>
           </DialogClose>
         </DialogFooter>
       </DialogContent>

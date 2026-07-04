@@ -1,4 +1,5 @@
 import { after, type NextRequest } from "next/server";
+import { getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { apiError, apiSuccess } from "@/lib/api/response";
@@ -14,18 +15,20 @@ import { isPdfMagicBytes } from "@/lib/pdf/validate";
 import { analyzePdfText } from "@/lib/ai/pdf-analysis";
 import { logAiUsage } from "@/lib/ai/usage";
 import { AI_MODEL } from "@/lib/ai/client";
+import type { Locale } from "@/i18n/locale";
 
 async function processUpload(params: {
   uploadId: string;
   userId: string;
   bytes: Uint8Array;
+  locale: Locale;
 }) {
   const admin = createAdminClient();
 
   try {
     const extractedText = await extractPdfText(params.bytes);
     const { analysis, inputTokens, outputTokens } =
-      await analyzePdfText(extractedText);
+      await analyzePdfText(extractedText, params.locale);
 
     await logAiUsage(admin, {
       userId: params.userId,
@@ -128,8 +131,9 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  const locale = await getLocale();
   after(() =>
-    processUpload({ uploadId: upload.id, userId: user.id, bytes }),
+    processUpload({ uploadId: upload.id, userId: user.id, bytes, locale }),
   );
 
   return apiSuccess({ uploadId: upload.id, status: upload.status }, 201);

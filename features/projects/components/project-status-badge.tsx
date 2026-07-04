@@ -1,7 +1,11 @@
+import { getTranslations } from "next-intl/server";
 import { cn } from "@/lib/utils";
-import { STATUS_BADGE_CLASSES, STATUS_LABELS } from "@/features/projects/status";
+import { STATUS_BADGE_CLASSES, STATUS_LABEL_KEYS } from "@/features/projects/status";
 
-export function ProjectStatusBadge({ status }: { status: string }) {
+export async function ProjectStatusBadge({ status }: { status: string }) {
+  const t = await getTranslations("common");
+  const labelKey = STATUS_LABEL_KEYS[status];
+
   return (
     <span
       className={cn(
@@ -9,7 +13,7 @@ export function ProjectStatusBadge({ status }: { status: string }) {
         STATUS_BADGE_CLASSES[status] ?? "bg-muted text-muted-foreground",
       )}
     >
-      {STATUS_LABELS[status] ?? status}
+      {labelKey ? t(labelKey as Parameters<typeof t>[0]) : status}
     </span>
   );
 }

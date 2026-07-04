@@ -1,1 +1,13 @@
-{}
+{
+  "library": {
+    "title": "Library",
+    "subtitle": "Every article you've saved, across all your projects.",
+    "emptyTitle": "Your library is empty",
+    "emptyDescription": "Save articles from Scientific Search to build your personal library.",
+    "searchForSources": "Search for sources",
+    "searchPlaceholder": "Search your library...",
+    "noResults": "No saved articles match your search.",
+    "unknownProject": "Unknown project",
+    "scoreLabel": "Score {score}/10"
+  }
+}

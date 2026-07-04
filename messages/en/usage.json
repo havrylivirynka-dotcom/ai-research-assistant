@@ -1,1 +1,19 @@
-{}
+{
+  "usage": {
+    "title": "AI Usage",
+    "subtitle": "Token usage, requests and estimated cost across every AI feature.",
+    "totalRequests": "Total requests",
+    "totalTokens": "Total tokens",
+    "estimatedCost": "Estimated cost",
+    "usageByFeature": "Usage by feature",
+    "recentActivity": "Recent activity",
+    "noUsage": "No AI usage recorded yet.",
+    "requestCount": "{count, plural, one {# request} other {# requests}}",
+    "tokensSuffix": "tokens",
+    "endpointAiAssistant": "AI Assistant",
+    "endpointPdfAnalyzer": "PDF Analyzer",
+    "endpointStructureGenerator": "Structure Generator",
+    "endpointSourceEvaluation": "Source Evaluation",
+    "endpointBibliographyChecker": "Bibliography Checker"
+  }
+}

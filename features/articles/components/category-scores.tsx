@@ -1,23 +1,29 @@
-const LABELS: Record<string, string> = {
-  credibility: "Credibility",
-  relevance: "Relevance",
-  freshness: "Freshness",
-  methodologyQuality: "Methodology quality",
-};
+"use client";
+
+import { useTranslations } from "next-intl";
+
+const CATEGORY_KEYS = [
+  "credibility",
+  "relevance",
+  "freshness",
+  "methodologyQuality",
+] as const;
 
 export function CategoryScores({
   scores,
 }: {
   scores: Record<string, number>;
 }) {
+  const t = useTranslations("articles.categoryScores");
+
   return (
     <div className="space-y-3">
-      {Object.entries(LABELS).map(([key, label]) => {
+      {CATEGORY_KEYS.map((key) => {
         const value = scores[key] ?? 0;
         return (
           <div key={key} className="space-y-1">
             <div className="flex items-center justify-between text-sm">
-              <span className="text-muted-foreground">{label}</span>
+              <span className="text-muted-foreground">{t(key)}</span>
               <span className="tabular-nums font-medium">
                 {value.toFixed(1)}
               </span>

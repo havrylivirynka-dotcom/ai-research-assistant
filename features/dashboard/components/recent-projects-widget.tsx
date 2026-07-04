@@ -1,15 +1,18 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { WidgetCard, WidgetEmptyState } from "./widget-card";
 import { ProjectStatusBadge } from "@/features/projects/components/project-status-badge";
 import type { Database } from "@/types/database";
 
 type Project = Database["public"]["Tables"]["projects"]["Row"];
 
-export function RecentProjectsWidget({ projects }: { projects: Project[] }) {
+export async function RecentProjectsWidget({ projects }: { projects: Project[] }) {
+  const t = await getTranslations("recentProjectsWidget");
+
   return (
-    <WidgetCard title="Recent projects" viewAllHref="/projects">
+    <WidgetCard title={t("title")} viewAllHref="/projects">
       {projects.length === 0 ? (
-        <WidgetEmptyState message="No projects yet. Create one to get started." />
+        <WidgetEmptyState message={t("emptyState")} />
       ) : (
         <ul className="space-y-3">
           {projects.map((project) => (

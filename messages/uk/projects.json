@@ -1,1 +1,51 @@
-{}
+{
+  "projects": {
+    "title": "Проєкти",
+    "subtitle": "Усі ваші дослідницькі проєкти в одному місці.",
+    "emptyTitle": "Поки немає проєктів",
+    "emptyDescription": "Створіть свій перший проєкт, щоб почати шукати літературу, оцінювати джерела та складати бібліографію.",
+    "noTopic": "Тему ще не вказано."
+  },
+  "createProjectDialog": {
+    "trigger": "Новий проєкт",
+    "title": "Створити дослідницький проєкт",
+    "description": "Дайте йому назву, щоб почати — решту можна заповнити пізніше.",
+    "titleLabel": "Назва",
+    "topicLabel": "Тема дослідження",
+    "scienceFieldLabel": "Галузь науки",
+    "descriptionLabel": "Опис",
+    "submit": "Створити проєкт",
+    "submitting": "Створення…",
+    "genericError": "Не вдалося створити проєкт."
+  },
+  "projectDetail": {
+    "backToProjects": "Проєкти",
+    "createdOn": "Створено {date}"
+  },
+  "workspaceNav": {
+    "overview": "Огляд",
+    "aiChat": "AI-чат",
+    "bibliography": "Бібліографія",
+    "structure": "Структура"
+  },
+  "editProjectForm": {
+    "titleLabel": "Назва",
+    "topicLabel": "Тема дослідження",
+    "scienceFieldLabel": "Галузь науки",
+    "statusLabel": "Статус",
+    "notesLabel": "Нотатки",
+    "notesPlaceholder": "Занотуйте ідеї, план або будь-що важливе про цей проєкт.",
+    "save": "Зберегти зміни",
+    "saving": "Збереження…",
+    "saved": "Збережено.",
+    "genericError": "Не вдалося зберегти зміни."
+  },
+  "deleteProjectButton": {
+    "ariaLabel": "Видалити проєкт",
+    "confirmTitle": "Видалити «{title}»?",
+    "confirmDescription": "Це остаточно видалить проєкт разом із збереженими джерелами, бібліографією, завантаженнями та історією чату. Скасувати цю дію неможливо.",
+    "cancel": "Скасувати",
+    "confirm": "Видалити",
+    "deleting": "Видалення…"
+  }
+}

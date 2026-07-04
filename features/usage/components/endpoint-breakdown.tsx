@@ -1,24 +1,25 @@
-const ENDPOINT_LABELS: Record<string, string> = {
-  "/api/articles/evaluate": "Source Evaluation",
-  "/api/uploads/pdf": "PDF Analyzer",
-  "/api/bibliography/analyze": "Bibliography Checker",
-  "/api/bibliography/reanalyze": "Bibliography Checker",
-  "/api/chat": "AI Assistant",
-  "/api/research/structure": "Structure Generator",
-};
+import { getTranslations } from "next-intl/server";
 
-export function EndpointBreakdown({
+export async function EndpointBreakdown({
   breakdown,
 }: {
   breakdown: { endpoint: string; requests: number; tokens: number; cost: number }[];
 }) {
+  const t = await getTranslations("usage");
   const maxTokens = Math.max(...breakdown.map((b) => b.tokens), 1);
+
+  const endpointLabels: Record<string, string> = {
+    "/api/articles/evaluate": t("endpointSourceEvaluation"),
+    "/api/uploads/pdf": t("endpointPdfAnalyzer"),
+    "/api/bibliography/analyze": t("endpointBibliographyChecker"),
+    "/api/bibliography/reanalyze": t("endpointBibliographyChecker"),
+    "/api/chat": t("endpointAiAssistant"),
+    "/api/research/structure": t("endpointStructureGenerator"),
+  };
 
   if (breakdown.length === 0) {
     return (
-      <p className="text-sm text-muted-foreground">
-        No AI usage recorded yet.
-      </p>
+      <p className="text-sm text-muted-foreground">{t("noUsage")}</p>
     );
   }
 
@@ -27,10 +28,10 @@ export function EndpointBreakdown({
       {breakdown.map((item) => (
         <div key={item.endpoint} className="space-y-1">
           <div className="flex items-center justify-between text-sm">
-            <span>{ENDPOINT_LABELS[item.endpoint] ?? item.endpoint}</span>
+            <span>{endpointLabels[item.endpoint] ?? item.endpoint}</span>
             <span className="text-muted-foreground">
-              {item.requests} request{item.requests === 1 ? "" : "s"} ·{" "}
-              {item.tokens.toLocaleString()} tokens · $
+              {t("requestCount", { count: item.requests })} ·{" "}
+              {item.tokens.toLocaleString()} {t("tokensSuffix")} · $
               {item.cost.toFixed(3)}
             </span>
           </div>

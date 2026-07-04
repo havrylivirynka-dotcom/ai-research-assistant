@@ -1,7 +1,9 @@
 import type { NextRequest } from "next/server";
+import { cookies } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 import { apiError, apiSuccess } from "@/lib/api/response";
 import { updateSettingsSchema } from "@/schemas/settings";
+import { LOCALE_COOKIE, isLocale } from "@/i18n/locale";
 
 export async function GET() {
   const supabase = await createClient();
@@ -68,6 +70,15 @@ export async function PATCH(request: NextRequest) {
       })
       .eq("user_id", user.id);
     if (error) return apiError("INTERNAL_ERROR", "Could not update settings.");
+
+    if (isLocale(parsed.data.language)) {
+      const cookieStore = await cookies();
+      cookieStore.set(LOCALE_COOKIE, parsed.data.language, {
+        path: "/",
+        maxAge: 60 * 60 * 24 * 365,
+        sameSite: "lax",
+      });
+    }
   }
 
   return apiSuccess({ updated: true });

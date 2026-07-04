@@ -1,1 +1,51 @@
-{}
+{
+  "projects": {
+    "title": "Projects",
+    "subtitle": "Every research project you're working on, in one place.",
+    "emptyTitle": "No projects yet",
+    "emptyDescription": "Create your first project to start searching literature, evaluating sources and building your bibliography.",
+    "noTopic": "No topic set yet."
+  },
+  "createProjectDialog": {
+    "trigger": "New project",
+    "title": "Create a research project",
+    "description": "Give it a title to get started — you can fill in the rest later.",
+    "titleLabel": "Title",
+    "topicLabel": "Research topic",
+    "scienceFieldLabel": "Field of science",
+    "descriptionLabel": "Description",
+    "submit": "Create project",
+    "submitting": "Creating…",
+    "genericError": "Could not create project."
+  },
+  "projectDetail": {
+    "backToProjects": "Projects",
+    "createdOn": "Created {date}"
+  },
+  "workspaceNav": {
+    "overview": "Overview",
+    "aiChat": "AI Chat",
+    "bibliography": "Bibliography",
+    "structure": "Structure"
+  },
+  "editProjectForm": {
+    "titleLabel": "Title",
+    "topicLabel": "Research topic",
+    "scienceFieldLabel": "Field of science",
+    "statusLabel": "Status",
+    "notesLabel": "Notes",
+    "notesPlaceholder": "Capture ideas, an outline, or anything worth remembering about this project.",
+    "save": "Save changes",
+    "saving": "Saving…",
+    "saved": "Saved.",
+    "genericError": "Could not save changes."
+  },
+  "deleteProjectButton": {
+    "ariaLabel": "Delete project",
+    "confirmTitle": "Delete \"{title}\"?",
+    "confirmDescription": "This permanently deletes the project along with its saved articles, bibliography, uploads and chat history. This cannot be undone.",
+    "cancel": "Cancel",
+    "confirm": "Delete",
+    "deleting": "Deleting…"
+  }
+}

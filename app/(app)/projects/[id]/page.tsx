@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { getProject } from "@/features/projects/queries";
 import { listSavedArticles } from "@/features/articles/queries";
@@ -45,6 +46,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
     notFound();
   }
 
+  const t = await getTranslations("projectDetail");
   const bibliographyItems = bibliography ?? [];
   const duplicateCount = bibliographyItems.filter(
     (ref) => (ref.ai_analysis as { isDuplicate?: boolean } | null)?.isDuplicate,
@@ -58,7 +60,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
         >
           <ArrowLeft className="size-4" />
-          Projects
+          {t("backToProjects")}
         </Link>
       </div>
 
@@ -71,7 +73,9 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             <ProjectStatusBadge status={project.status} />
           </div>
           <p className="text-sm text-muted-foreground">
-            Created {new Date(project.created_at).toLocaleDateString()}
+            {t("createdOn", {
+              date: new Date(project.created_at).toLocaleDateString(),
+            })}
           </p>
         </div>
         <DeleteProjectButton projectId={project.id} projectTitle={project.title} />

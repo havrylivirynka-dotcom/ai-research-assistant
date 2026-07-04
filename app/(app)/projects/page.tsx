@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { FolderKanban } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { listProjects } from "@/features/projects/queries";
 import { ProjectCard } from "@/features/projects/components/project-card";
@@ -10,15 +11,16 @@ export const metadata: Metadata = { title: "Projects" };
 export default async function ProjectsPage() {
   const supabase = await createClient();
   const { data: projects } = await listProjects(supabase);
+  const t = await getTranslations("projects");
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight">Projects</h1>
-          <p className="text-muted-foreground">
-            Every research project you&apos;re working on, in one place.
-          </p>
+          <h1 className="text-2xl font-semibold tracking-tight">
+            {t("title")}
+          </h1>
+          <p className="text-muted-foreground">{t("subtitle")}</p>
         </div>
         <CreateProjectDialog />
       </div>
@@ -34,10 +36,9 @@ export default async function ProjectsPage() {
           <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
             <FolderKanban className="size-6" />
           </div>
-          <h2 className="mt-4 text-lg font-semibold">No projects yet</h2>
+          <h2 className="mt-4 text-lg font-semibold">{t("emptyTitle")}</h2>
           <p className="mt-1 max-w-sm text-sm text-muted-foreground">
-            Create your first project to start searching literature,
-            evaluating sources and building your bibliography.
+            {t("emptyDescription")}
           </p>
           <div className="mt-6">
             <CreateProjectDialog />

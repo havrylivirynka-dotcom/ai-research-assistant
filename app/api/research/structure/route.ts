@@ -1,4 +1,5 @@
 import type { NextRequest } from "next/server";
+import { getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { apiError, apiSuccess } from "@/lib/api/response";
 import { rateLimit } from "@/lib/rate-limit";
@@ -37,8 +38,9 @@ export async function POST(request: NextRequest) {
   }
 
   try {
+    const locale = await getLocale();
     const { structure, inputTokens, outputTokens } =
-      await generateResearchStructure(parsed.data.topic);
+      await generateResearchStructure(parsed.data.topic, locale);
 
     await logAiUsage(supabase, {
       userId: user.id,

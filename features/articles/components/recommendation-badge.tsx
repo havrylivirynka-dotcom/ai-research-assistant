@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
 const RECOMMENDATION_CLASSES: Record<string, string> = {
@@ -13,6 +16,9 @@ export function RecommendationBadge({
 }: {
   recommendation: string;
 }) {
+  const t = useTranslations("articles");
+  type RecommendationKey = "Highly Recommended" | "Recommended" | "Acceptable" | "Use With Caution" | "Not Recommended";
+
   return (
     <span
       className={cn(
@@ -21,7 +27,7 @@ export function RecommendationBadge({
           "bg-muted text-muted-foreground",
       )}
     >
-      {recommendation}
+      {t(`recommendation.${recommendation as RecommendationKey}`)}
     </span>
   );
 }

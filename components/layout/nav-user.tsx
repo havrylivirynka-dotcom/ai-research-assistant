@@ -2,6 +2,7 @@
 
 import { ChevronsUpDown, LogOut, Settings } from "lucide-react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { signOut } from "@/features/auth/actions";
 import {
   Avatar,
@@ -35,6 +36,8 @@ export function NavUser({
 }: {
   user: { fullName: string; email: string; avatarUrl: string | null };
 }) {
+  const t = useTranslations("nav");
+
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -60,7 +63,7 @@ export function NavUser({
             <DropdownMenuItem asChild>
               <Link href="/settings">
                 <Settings className="size-4" />
-                Settings
+                {t("settings")}
               </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
@@ -68,7 +71,7 @@ export function NavUser({
               <form action={signOut} className="w-full">
                 <button type="submit" className="flex w-full items-center gap-2">
                   <LogOut className="size-4" />
-                  Sign out
+                  {t("signOut")}
                 </button>
               </form>
             </DropdownMenuItem>

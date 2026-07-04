@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getSavedArticle } from "@/features/articles/queries";
@@ -31,6 +32,8 @@ export default async function ArticleDetailPage({ params }: PageProps) {
   const { id, articleId } = await params;
   const supabase = await createClient();
   const { data: article, error } = await getSavedArticle(supabase, articleId);
+  const t = await getTranslations("articles.detailPage");
+  const tEvaluation = await getTranslations("articles.evaluation");
 
   if (error || !article) {
     notFound();
@@ -46,7 +49,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
         className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
       >
         <ArrowLeft className="size-4" />
-        {article.projects?.title ?? "Project"}
+        {article.projects?.title ?? t("project")}
       </Link>
 
       <div>
@@ -62,14 +65,14 @@ export default async function ArticleDetailPage({ params }: PageProps) {
 
       <Tabs defaultValue="evaluation">
         <TabsList>
-          <TabsTrigger value="abstract">Abstract</TabsTrigger>
-          <TabsTrigger value="evaluation">AI Evaluation</TabsTrigger>
-          <TabsTrigger value="metadata">Metadata</TabsTrigger>
+          <TabsTrigger value="abstract">{t("abstractTab")}</TabsTrigger>
+          <TabsTrigger value="evaluation">{t("evaluationTab")}</TabsTrigger>
+          <TabsTrigger value="metadata">{t("metadataTab")}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="abstract" className="max-w-2xl">
           <p className="text-sm leading-relaxed text-foreground/90">
-            {article.abstract || "No abstract available for this source."}
+            {article.abstract || t("noAbstract")}
           </p>
         </TabsContent>
 
@@ -111,7 +114,9 @@ export default async function ArticleDetailPage({ params }: PageProps) {
 
               <div className="grid gap-4 sm:grid-cols-3">
                 <div>
-                  <h3 className="text-sm font-medium">Strengths</h3>
+                  <h3 className="text-sm font-medium">
+                    {tEvaluation("strengths")}
+                  </h3>
                   <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-muted-foreground">
                     {evaluation.strengths.map((item) => (
                       <li key={item}>{item}</li>
@@ -119,7 +124,9 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                   </ul>
                 </div>
                 <div>
-                  <h3 className="text-sm font-medium">Weaknesses</h3>
+                  <h3 className="text-sm font-medium">
+                    {tEvaluation("weaknesses")}
+                  </h3>
                   <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-muted-foreground">
                     {evaluation.weaknesses.map((item) => (
                       <li key={item}>{item}</li>
@@ -127,9 +134,13 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                   </ul>
                 </div>
                 <div>
-                  <h3 className="text-sm font-medium">Risks</h3>
+                  <h3 className="text-sm font-medium">
+                    {tEvaluation("risks")}
+                  </h3>
                   {evaluation.risks.length === 0 ? (
-                    <p className="mt-2 text-sm text-muted-foreground">None noted.</p>
+                    <p className="mt-2 text-sm text-muted-foreground">
+                      {tEvaluation("noneNoted")}
+                    </p>
                   ) : (
                     <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-muted-foreground">
                       {evaluation.risks.map((item) => (
@@ -142,23 +153,22 @@ export default async function ArticleDetailPage({ params }: PageProps) {
             </div>
           ) : (
             <p className="text-sm text-muted-foreground">
-              Not evaluated yet. Run the AI evaluation to get a credibility
-              score and recommendation for this source.
+              {t("notEvaluated")}
             </p>
           )}
         </TabsContent>
 
         <TabsContent value="metadata" className="max-w-2xl">
           <dl className="grid grid-cols-[140px_1fr] gap-y-3 text-sm">
-            <dt className="text-muted-foreground">Journal</dt>
+            <dt className="text-muted-foreground">{t("journal")}</dt>
             <dd>{article.journal ?? "—"}</dd>
-            <dt className="text-muted-foreground">Publisher</dt>
+            <dt className="text-muted-foreground">{t("publisher")}</dt>
             <dd>{article.publisher ?? "—"}</dd>
-            <dt className="text-muted-foreground">Year</dt>
+            <dt className="text-muted-foreground">{t("year")}</dt>
             <dd>{article.publication_year ?? "—"}</dd>
-            <dt className="text-muted-foreground">Citations</dt>
+            <dt className="text-muted-foreground">{t("citations")}</dt>
             <dd>{article.citations}</dd>
-            <dt className="text-muted-foreground">DOI</dt>
+            <dt className="text-muted-foreground">{t("doi")}</dt>
             <dd>
               {article.doi ? (
                 <a
@@ -174,7 +184,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                 "—"
               )}
             </dd>
-            <dt className="text-muted-foreground">Saved</dt>
+            <dt className="text-muted-foreground">{t("saved")}</dt>
             <dd>{new Date(article.created_at).toLocaleDateString()}</dd>
           </dl>
         </TabsContent>

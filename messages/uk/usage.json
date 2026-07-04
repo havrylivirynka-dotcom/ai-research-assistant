@@ -1,1 +1,19 @@
-{}
+{
+  "usage": {
+    "title": "Використання AI",
+    "subtitle": "Токени, запити та орієнтовна вартість за кожною функцією AI.",
+    "totalRequests": "Усього запитів",
+    "totalTokens": "Усього токенів",
+    "estimatedCost": "Орієнтовна вартість",
+    "usageByFeature": "Використання за функціями",
+    "recentActivity": "Остання активність",
+    "noUsage": "Ще немає даних про використання AI.",
+    "requestCount": "{count, plural, one {# запит} few {# запити} many {# запитів} other {# запиту}}",
+    "tokensSuffix": "токенів",
+    "endpointAiAssistant": "AI-помічник",
+    "endpointPdfAnalyzer": "Аналізатор PDF",
+    "endpointStructureGenerator": "Генератор структури",
+    "endpointSourceEvaluation": "Оцінка джерел",
+    "endpointBibliographyChecker": "Перевірка бібліографії"
+  }
+}

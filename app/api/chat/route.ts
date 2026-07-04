@@ -1,4 +1,5 @@
 import type { NextRequest } from "next/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { apiError, apiSuccess } from "@/lib/api/response";
 import { rateLimit } from "@/lib/rate-limit";
@@ -11,8 +12,8 @@ import {
   listMessages,
 } from "@/features/chat/queries";
 import { retrieveRelevantChunks, formatRetrievedContext } from "@/lib/ai/rag";
-import { RESEARCH_ASSISTANT_SYSTEM_PROMPT } from "@/prompts/research-assistant";
-import { MAN_EXPERT_SYSTEM_PROMPT, buildRagUserPrompt } from "@/prompts/man-expert";
+import { getResearchAssistantSystemPrompt } from "@/prompts/research-assistant";
+import { getManExpertSystemPrompt, buildRagUserPrompt } from "@/prompts/man-expert";
 import { AI_MODEL, AiNotConfiguredError, getOpenAiClient } from "@/lib/ai/client";
 import { logAiUsage } from "@/lib/ai/usage";
 
@@ -113,10 +114,12 @@ export async function POST(request: NextRequest) {
   const retrievedChunks = await retrieveRelevantChunks(supabase, message);
   const context = formatRetrievedContext(retrievedChunks);
 
+  const locale = await getLocale();
+  const t = await getTranslations({ locale, namespace: "chat" });
   const systemPrompt =
     chat.mode === "man_expert"
-      ? MAN_EXPERT_SYSTEM_PROMPT
-      : RESEARCH_ASSISTANT_SYSTEM_PROMPT;
+      ? getManExpertSystemPrompt(locale)
+      : getResearchAssistantSystemPrompt(locale);
 
   const conversationInput = [
     { role: "system" as const, content: systemPrompt },
@@ -187,7 +190,7 @@ export async function POST(request: NextRequest) {
         });
       } catch (error) {
         console.error("Chat streaming failed", error);
-        send({ type: "error", message: "The AI response failed." });
+        send({ type: "error", message: t("aiResponseFailed") });
       } finally {
         controller.close();
       }

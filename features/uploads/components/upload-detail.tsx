@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Loader2, AlertTriangle } from "lucide-react";
+import { useTranslations } from "next-intl";
 import {
   Tabs,
   TabsContent,
@@ -16,6 +17,7 @@ type Upload = Database["public"]["Tables"]["uploads"]["Row"];
 const POLL_INTERVAL_MS = 3000;
 
 export function UploadDetail({ initialUpload }: { initialUpload: Upload }) {
+  const t = useTranslations("uploadDetail");
   const [upload, setUpload] = useState(initialUpload);
 
   useEffect(() => {
@@ -35,9 +37,7 @@ export function UploadDetail({ initialUpload }: { initialUpload: Upload }) {
     return (
       <div className="flex flex-col items-center gap-3 rounded-xl border border-dashed py-16 text-center">
         <Loader2 className="size-6 animate-spin text-muted-foreground" />
-        <p className="text-sm text-muted-foreground">
-          Analyzing this PDF — this usually takes under a minute.
-        </p>
+        <p className="text-sm text-muted-foreground">{t("analyzing")}</p>
       </div>
     );
   }
@@ -47,7 +47,7 @@ export function UploadDetail({ initialUpload }: { initialUpload: Upload }) {
       <div className="flex flex-col items-center gap-3 rounded-xl border border-dashed border-destructive/40 py-16 text-center">
         <AlertTriangle className="size-6 text-destructive" />
         <p className="text-sm text-muted-foreground">
-          Analysis failed for this file. Try deleting it and uploading again.
+          {t("analysisFailed")}
         </p>
       </div>
     );
@@ -58,7 +58,7 @@ export function UploadDetail({ initialUpload }: { initialUpload: Upload }) {
   if (!analysis) {
     return (
       <p className="text-sm text-muted-foreground">
-        This upload completed but no analysis is available.
+        {t("noAnalysisAvailable")}
       </p>
     );
   }
@@ -66,10 +66,10 @@ export function UploadDetail({ initialUpload }: { initialUpload: Upload }) {
   return (
     <Tabs defaultValue="summary">
       <TabsList>
-        <TabsTrigger value="summary">Summary</TabsTrigger>
-        <TabsTrigger value="findings">Findings</TabsTrigger>
-        <TabsTrigger value="strengths">Strengths & Weaknesses</TabsTrigger>
-        <TabsTrigger value="citations">Suggested Citations</TabsTrigger>
+        <TabsTrigger value="summary">{t("summaryTab")}</TabsTrigger>
+        <TabsTrigger value="findings">{t("findingsTab")}</TabsTrigger>
+        <TabsTrigger value="strengths">{t("strengthsTab")}</TabsTrigger>
+        <TabsTrigger value="citations">{t("citationsTab")}</TabsTrigger>
       </TabsList>
 
       <TabsContent value="summary" className="max-w-2xl space-y-4">
@@ -78,7 +78,7 @@ export function UploadDetail({ initialUpload }: { initialUpload: Upload }) {
         </p>
         {analysis.keyContributions.length > 0 && (
           <div>
-            <h3 className="text-sm font-medium">Key contributions</h3>
+            <h3 className="text-sm font-medium">{t("keyContributions")}</h3>
             <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-muted-foreground">
               {analysis.keyContributions.map((item) => (
                 <li key={item}>{item}</li>
@@ -102,21 +102,21 @@ export function UploadDetail({ initialUpload }: { initialUpload: Upload }) {
 
       <TabsContent value="findings" className="max-w-2xl space-y-4">
         <div>
-          <h3 className="text-sm font-medium">Methods</h3>
+          <h3 className="text-sm font-medium">{t("methods")}</h3>
           <p className="mt-1 text-sm text-muted-foreground">
-            {analysis.methods || "Not described in the extracted text."}
+            {analysis.methods || t("notDescribed")}
           </p>
         </div>
         <div>
-          <h3 className="text-sm font-medium">Findings</h3>
+          <h3 className="text-sm font-medium">{t("findings")}</h3>
           <p className="mt-1 text-sm text-muted-foreground">
-            {analysis.findings || "Not described in the extracted text."}
+            {analysis.findings || t("notDescribed")}
           </p>
         </div>
         <div>
-          <h3 className="text-sm font-medium">Conclusions</h3>
+          <h3 className="text-sm font-medium">{t("conclusions")}</h3>
           <p className="mt-1 text-sm text-muted-foreground">
-            {analysis.conclusions || "Not described in the extracted text."}
+            {analysis.conclusions || t("notDescribed")}
           </p>
         </div>
       </TabsContent>
@@ -124,7 +124,7 @@ export function UploadDetail({ initialUpload }: { initialUpload: Upload }) {
       <TabsContent value="strengths" className="max-w-2xl">
         <div className="grid gap-4 sm:grid-cols-3">
           <div>
-            <h3 className="text-sm font-medium">Strengths</h3>
+            <h3 className="text-sm font-medium">{t("strengths")}</h3>
             <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-muted-foreground">
               {analysis.strengths.map((item) => (
                 <li key={item}>{item}</li>
@@ -132,7 +132,7 @@ export function UploadDetail({ initialUpload }: { initialUpload: Upload }) {
             </ul>
           </div>
           <div>
-            <h3 className="text-sm font-medium">Weaknesses</h3>
+            <h3 className="text-sm font-medium">{t("weaknesses")}</h3>
             <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-muted-foreground">
               {analysis.weaknesses.map((item) => (
                 <li key={item}>{item}</li>
@@ -140,10 +140,10 @@ export function UploadDetail({ initialUpload }: { initialUpload: Upload }) {
             </ul>
           </div>
           <div>
-            <h3 className="text-sm font-medium">Limitations</h3>
+            <h3 className="text-sm font-medium">{t("limitations")}</h3>
             {analysis.limitations.length === 0 ? (
               <p className="mt-2 text-sm text-muted-foreground">
-                None stated by the authors.
+                {t("noLimitationsStated")}
               </p>
             ) : (
               <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-muted-foreground">
@@ -159,7 +159,7 @@ export function UploadDetail({ initialUpload }: { initialUpload: Upload }) {
       <TabsContent value="citations" className="max-w-2xl">
         {analysis.possibleCitations.length === 0 ? (
           <p className="text-sm text-muted-foreground">
-            No citation suggestions for this source.
+            {t("noCitationSuggestions")}
           </p>
         ) : (
           <ul className="list-disc space-y-1 pl-4 text-sm text-muted-foreground">

@@ -12,17 +12,25 @@ import {
 
 export type NavLink = {
   href: string;
-  label: string;
+  labelKey:
+    | "dashboard"
+    | "projects"
+    | "scientificSearch"
+    | "aiAssistant"
+    | "library"
+    | "bibliography"
+    | "uploads"
+    | "settings";
   icon: LucideIcon;
 };
 
 export const NAV_LINKS: NavLink[] = [
-  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/projects", label: "Projects", icon: FolderKanban },
-  { href: "/search", label: "Scientific Search", icon: Search },
-  { href: "/chat", label: "AI Assistant", icon: MessagesSquare },
-  { href: "/library", label: "Library", icon: BookMarked },
-  { href: "/bibliography", label: "Bibliography", icon: ListChecks },
-  { href: "/uploads", label: "Uploads", icon: Upload },
-  { href: "/settings", label: "Settings", icon: Settings },
+  { href: "/dashboard", labelKey: "dashboard", icon: LayoutDashboard },
+  { href: "/projects", labelKey: "projects", icon: FolderKanban },
+  { href: "/search", labelKey: "scientificSearch", icon: Search },
+  { href: "/chat", labelKey: "aiAssistant", icon: MessagesSquare },
+  { href: "/library", labelKey: "library", icon: BookMarked },
+  { href: "/bibliography", labelKey: "bibliography", icon: ListChecks },
+  { href: "/uploads", labelKey: "uploads", icon: Upload },
+  { href: "/settings", labelKey: "settings", icon: Settings },
 ];

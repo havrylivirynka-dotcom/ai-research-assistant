@@ -1,9 +1,11 @@
-import { GENERAL_AI_RULES } from "./general-rules";
+import { getGeneralAiRules } from "./general-rules";
+import type { Locale } from "@/i18n/locale";
 
 /**
  * System prompt for the PDF Analyzer module (AI_PROMPTS.md §3).
  */
-export const PDF_ANALYZER_SYSTEM_PROMPT = `${GENERAL_AI_RULES}
+export function getPdfAnalyzerSystemPrompt(locale: Locale): string {
+  return `${getGeneralAiRules(locale)}
 
 # Role: PDF Analyzer
 
@@ -26,6 +28,7 @@ Generate, based only on the extracted content:
 - possibleCitations: short suggestions for how this paper could be cited or used in a related research project (list)
 
 Never summarize or invent content that is not present in the extracted text. If the text is truncated, garbled, or clearly incomplete (e.g. an OCR failure), say so in the summary instead of fabricating missing sections.`;
+}
 
 export function buildPdfAnalyzerUserPrompt(extractedText: string): string {
   return `Analyze this extracted PDF text:\n\n${extractedText}`;

@@ -1,1 +1,61 @@
-{}
+{
+  "bibliography": {
+    "title": "Бібліографія",
+    "subtitle": "Оберіть проєкт, щоб керувати його бібліографією та перевіряти джерела.",
+    "noProjectsTitle": "Ще немає проєктів",
+    "noProjectsDescription": "Спочатку створіть проєкт, а тоді керуйте його бібліографією тут.",
+    "goToProjects": "Перейти до проєктів",
+    "referencesCount": "{count, plural, one {# джерело} few {# джерела} many {# джерел} other {# джерела}}",
+    "possibleDuplicatesCount": "{count, plural, one {# можливий дублікат} few {# можливі дублікати} many {# можливих дублікатів} other {# можливих дублікатів}}",
+    "emptyTitle": "Ще немає джерел",
+    "emptyDescription": "Імпортуйте список джерел або додавайте їх по одному, щоб перевірити на дублікати, застарілі джерела та помилки оформлення."
+  },
+  "addReferenceDialog": {
+    "trigger": "Додати джерело",
+    "title": "Додати джерело",
+    "referenceLabel": "Джерело",
+    "referencePlaceholder": "Смирнов, І. (2020). Назва статті. Назва журналу.",
+    "errorFallback": "Не вдалося додати джерело."
+  },
+  "importBibliographyDialog": {
+    "trigger": "Імпортувати",
+    "title": "Імпортувати бібліографію",
+    "description": "Вставте джерела (по одному на рядок) або завантажте файл DOCX, PDF чи текстовий файл. Кожне джерело буде перевірено на дублікати, застарілість і помилки оформлення.",
+    "tabPaste": "Вставити текст",
+    "tabFile": "Завантажити файл",
+    "referencesLabel": "Джерела",
+    "referencesPlaceholder": "Смирнов, І. (2020). Назва статті. Назва журналу.\nІваненко, О. (2019). Інша назва. Видавництво.",
+    "fileLabel": "Файл",
+    "importingAndAnalyzing": "Імпортування та аналіз…",
+    "submit": "Імпортувати та проаналізувати",
+    "importing": "Імпортування…",
+    "errorFallback": "Не вдалося імпортувати джерела.",
+    "successWithAnalysis": "Імпортовано та проаналізовано {count, plural, one {# джерело} few {# джерела} many {# джерел} other {# джерела}}.",
+    "successWithoutAnalysis": "Імпортовано {count, plural, one {# джерело} few {# джерела} many {# джерел} other {# джерела}}. AI-аналіз недоступний."
+  },
+  "referenceRow": {
+    "duplicateOf": "Дублікат джерела №{index}",
+    "deleteAriaLabel": "Видалити джерело"
+  },
+  "reanalyzeButton": {
+    "label": "Проаналізувати все повторно",
+    "analyzing": "Аналіз…",
+    "successToast": "Бібліографію повторно проаналізовано.",
+    "errorFallback": "Не вдалося проаналізувати бібліографію."
+  },
+  "sourceType": {
+    "journal_article": "Стаття в журналі",
+    "book": "Книга",
+    "conference_paper": "Матеріали конференції",
+    "website": "Веб-сайт",
+    "report": "Звіт",
+    "other": "Інше"
+  },
+  "recommendation": {
+    "Highly Recommended": "Настійно рекомендовано",
+    "Recommended": "Рекомендовано",
+    "Acceptable": "Прийнятно",
+    "Use With Caution": "Використовувати з обережністю",
+    "Not Recommended": "Не рекомендовано"
+  }
+}

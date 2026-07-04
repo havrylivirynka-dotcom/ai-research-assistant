@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Check, Copy, FileText } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
@@ -15,6 +16,7 @@ export type ChatMessage = {
 };
 
 export function MessageBubble({ message }: { message: ChatMessage }) {
+  const t = useTranslations("chat");
   const [copied, setCopied] = useState(false);
   const isUser = message.role === "user";
 
@@ -47,7 +49,9 @@ export function MessageBubble({ message }: { message: ChatMessage }) {
               >
                 <FileText className="size-3 shrink-0" />
                 {citation.documentTitle}
-                {citation.sectionRef ? ` — Section ${citation.sectionRef}` : ""}
+                {citation.sectionRef
+                  ? ` — ${t("sectionRef", { section: citation.sectionRef })}`
+                  : ""}
               </p>
             ))}
           </div>
@@ -59,7 +63,7 @@ export function MessageBubble({ message }: { message: ChatMessage }) {
             size="icon"
             onClick={handleCopy}
             className="size-6 opacity-0 transition-opacity group-hover:opacity-100"
-            aria-label="Copy response"
+            aria-label={t("copyResponse")}
           >
             {copied ? (
               <Check className="size-3.5" />

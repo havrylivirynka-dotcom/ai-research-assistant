@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Sparkles, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -30,6 +31,7 @@ export function EvaluateButton({
   hasEvaluation,
 }: EvaluateButtonProps) {
   const router = useRouter();
+  const t = useTranslations("articles.evaluateButton");
   const [isEvaluating, setIsEvaluating] = useState(false);
 
   async function handleEvaluate() {
@@ -54,7 +56,7 @@ export function EvaluateButton({
 
     if (!response.ok) {
       const body = await response.json().catch(() => null);
-      toast.error(body?.error?.message ?? "Could not evaluate this source.");
+      toast.error(body?.error?.message ?? t("genericError"));
       return;
     }
 
@@ -69,10 +71,10 @@ export function EvaluateButton({
         <Sparkles className="size-4" />
       )}
       {isEvaluating
-        ? "Evaluating..."
+        ? t("evaluating")
         : hasEvaluation
-          ? "Re-evaluate"
-          : "Evaluate with AI"}
+          ? t("reEvaluate")
+          : t("evaluate")}
     </Button>
   );
 }

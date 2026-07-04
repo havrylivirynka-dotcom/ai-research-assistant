@@ -1,1 +1,19 @@
-{}
+{
+  "structure": {
+    "title": "Research Structure",
+    "pageSubtitle": "Generate a logical outline to guide your writing — it won't write the paper for you.",
+    "topicLabel": "Research topic",
+    "topicPlaceholder": "e.g. Impact of microplastics on freshwater ecosystems",
+    "generateButton": "Generate outline",
+    "generating": "Generating...",
+    "generateFailed": "Could not generate a structure.",
+    "introductionHeading": "Introduction",
+    "chapterHeading": "Chapter {number}: {title}",
+    "conclusionHeading": "Conclusion",
+    "appendicesHeading": "Appendices",
+    "addToNotes": "Add to project notes",
+    "saving": "Saving...",
+    "saveFailed": "Could not save the outline to project notes.",
+    "saveSucceeded": "Outline added to project notes."
+  }
+}

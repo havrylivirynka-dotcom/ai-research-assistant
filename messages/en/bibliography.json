@@ -1,1 +1,61 @@
-{}
+{
+  "bibliography": {
+    "title": "Bibliography",
+    "subtitle": "Choose a project to manage and check its bibliography.",
+    "noProjectsTitle": "No projects yet",
+    "noProjectsDescription": "Create a project first, then manage its bibliography here.",
+    "goToProjects": "Go to projects",
+    "referencesCount": "{count, plural, one {# reference} other {# references}}",
+    "possibleDuplicatesCount": "{count, plural, one {# possible duplicate} other {# possible duplicates}}",
+    "emptyTitle": "No references yet",
+    "emptyDescription": "Import a reference list or add sources one at a time to check for duplicates, outdated sources and formatting issues."
+  },
+  "addReferenceDialog": {
+    "trigger": "Add reference",
+    "title": "Add a reference",
+    "referenceLabel": "Reference",
+    "referencePlaceholder": "Smith, J. (2020). Title of the paper. Journal Name.",
+    "errorFallback": "Could not add reference."
+  },
+  "importBibliographyDialog": {
+    "trigger": "Import",
+    "title": "Import bibliography",
+    "description": "Paste references (one per line) or upload a DOCX, PDF or text file. Each reference will be checked for duplicates, outdated sources and formatting issues.",
+    "tabPaste": "Paste text",
+    "tabFile": "Upload file",
+    "referencesLabel": "References",
+    "referencesPlaceholder": "Smith, J. (2020). Title of the paper. Journal Name.\nDoe, A. (2019). Another title. Publisher.",
+    "fileLabel": "File",
+    "importingAndAnalyzing": "Importing and analyzing...",
+    "submit": "Import & analyze",
+    "importing": "Importing...",
+    "errorFallback": "Could not import references.",
+    "successWithAnalysis": "Imported and analyzed {count, plural, one {# reference} other {# references}}.",
+    "successWithoutAnalysis": "Imported {count, plural, one {# reference} other {# references}}. AI analysis is unavailable."
+  },
+  "referenceRow": {
+    "duplicateOf": "Duplicate of #{index}",
+    "deleteAriaLabel": "Delete reference"
+  },
+  "reanalyzeButton": {
+    "label": "Re-analyze all",
+    "analyzing": "Analyzing...",
+    "successToast": "Bibliography re-analyzed.",
+    "errorFallback": "Could not analyze the bibliography."
+  },
+  "sourceType": {
+    "journal_article": "Journal article",
+    "book": "Book",
+    "conference_paper": "Conference paper",
+    "website": "Website",
+    "report": "Report",
+    "other": "Other"
+  },
+  "recommendation": {
+    "Highly Recommended": "Highly Recommended",
+    "Recommended": "Recommended",
+    "Acceptable": "Acceptable",
+    "Use With Caution": "Use With Caution",
+    "Not Recommended": "Not Recommended"
+  }
+}

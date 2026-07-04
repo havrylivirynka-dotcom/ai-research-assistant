@@ -1,1 +1,42 @@
-{}
+{
+  "search": {
+    "title": "Scientific Search",
+    "subtitle": "Search OpenAlex, CrossRef, Semantic Scholar, arXiv, PubMed and DOAJ in one query.",
+    "placeholder": "Search scientific literature — e.g. microplastics in freshwater ecosystems",
+    "searchButton": "Search",
+    "noResults": "No results found. Try a different query or loosen your filters.",
+    "emptyState": "Search OpenAlex, CrossRef, Semantic Scholar, arXiv, PubMed and DOAJ at once.",
+    "searchFailed": "Search failed. Please try again.",
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page {page}",
+    "openAccess": "Open Access",
+    "citations": "{count, plural, one {# citation} other {# citations}}"
+  },
+  "filters": {
+    "trigger": "Filters",
+    "yearFrom": "From year",
+    "yearTo": "To year",
+    "minCitations": "Minimum citations",
+    "language": "Language code",
+    "openAccessOnly": "Open access only",
+    "clear": "Clear filters"
+  },
+  "saveDialog": {
+    "trigger": "Save",
+    "title": "Save to project",
+    "description": "Choose which project this source belongs to.",
+    "noProjects": "You don't have any projects yet.",
+    "createOne": "Create one",
+    "createOneSuffix": "first.",
+    "savedSuccess": "Saved to project.",
+    "savedError": "Could not save this article."
+  },
+  "analyzeDialog": {
+    "trigger": "Analyze",
+    "analyzing": "Analyzing source with AI…",
+    "tryAgain": "Try again",
+    "close": "Close",
+    "genericError": "Could not evaluate this source."
+  }
+}

@@ -1,9 +1,11 @@
-import { GENERAL_AI_RULES } from "./general-rules";
+import { getGeneralAiRules } from "./general-rules";
+import type { Locale } from "@/i18n/locale";
 
 /**
  * System prompt for the Research Assistant chat module (AI_PROMPTS.md §1).
  */
-export const RESEARCH_ASSISTANT_SYSTEM_PROMPT = `${GENERAL_AI_RULES}
+export function getResearchAssistantSystemPrompt(locale: Locale): string {
+  return `${getGeneralAiRules(locale)}
 
 # Role: Research Assistant
 
@@ -17,3 +19,4 @@ Knowledge sources, in priority order:
 If context passages from official documentation are provided and relevant to the question, ground your answer in them and cite the document title and section. If the question is about МАН-specific rules and no relevant passage was retrieved, say plainly that you could not find that in the official documentation, rather than guessing.
 
 Never write an entire scientific paper for the user. Instead, explain concepts, provide examples, and give guidance so they can write it themselves.`;
+}

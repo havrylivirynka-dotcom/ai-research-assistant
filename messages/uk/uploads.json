@@ -1,1 +1,46 @@
-{}
+{
+  "uploads": {
+    "title": "Завантаження",
+    "subtitle": "Усі PDF-файли, які ви завантажили для аналізу AI, з усіх проєктів.",
+    "unknownProject": "Невідомий проєкт",
+    "emptyTitle": "Поки що немає завантажень",
+    "emptyDescription": "Відкрийте проєкт і завантажте PDF, щоб отримати згенерований AI підсумок, сильні й слабкі сторони та рекомендовані джерела.",
+    "goToProjects": "Перейти до проєктів"
+  },
+  "uploadDetail": {
+    "summaryTab": "Підсумок",
+    "findingsTab": "Результати",
+    "strengthsTab": "Сильні та слабкі сторони",
+    "citationsTab": "Рекомендовані джерела",
+    "keyContributions": "Ключовий внесок",
+    "methods": "Методи",
+    "findings": "Результати",
+    "conclusions": "Висновки",
+    "strengths": "Сильні сторони",
+    "weaknesses": "Слабкі сторони",
+    "limitations": "Обмеження",
+    "notDescribed": "Не описано в добутому тексті.",
+    "noLimitationsStated": "Автори не вказали жодних обмежень.",
+    "noCitationSuggestions": "Для цього джерела немає рекомендованих цитувань.",
+    "analyzing": "Аналізуємо цей PDF — зазвичай це триває менше хвилини.",
+    "analysisFailed": "Не вдалося проаналізувати цей файл. Спробуйте видалити його та завантажити ще раз.",
+    "noAnalysisAvailable": "Це завантаження завершено, але аналіз недоступний.",
+    "projectFallback": "Проєкт"
+  },
+  "uploadDropzone": {
+    "instructions": "Перетягніть PDF або натисніть, щоб обрати файл",
+    "maxSize": "До {size} МБ",
+    "uploading": "Завантаження…",
+    "invalidFileType": "Підтримуються лише PDF-файли.",
+    "uploadFailed": "Не вдалося завантажити файл.",
+    "uploadStarted": "Завантаження розпочато — аналізуємо у фоновому режимі."
+  },
+  "uploadStatus": {
+    "processing": "Обробка",
+    "completed": "Завершено",
+    "failed": "Помилка"
+  },
+  "projectUploadsList": {
+    "title": "Завантаження"
+  }
+}

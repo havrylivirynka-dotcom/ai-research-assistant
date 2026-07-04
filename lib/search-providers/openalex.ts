@@ -22,6 +22,7 @@ type OpenAlexWork = {
   language?: string | null;
   type?: string | null;
   abstract_inverted_index?: Record<string, number[]> | null;
+  concepts?: { display_name?: string }[];
 };
 
 type OpenAlexResponse = { results: OpenAlexWork[]; meta: { count: number } };

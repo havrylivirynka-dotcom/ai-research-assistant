@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ListChecks } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { listProjects } from "@/features/projects/queries";
 
 export const metadata: Metadata = { title: "Bibliography" };
 
 export default async function BibliographyPage() {
+  const t = await getTranslations("bibliography");
   const supabase = await createClient();
   const { data: projects } = await listProjects(supabase);
 
@@ -14,11 +16,9 @@ export default async function BibliographyPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-semibold tracking-tight">
-          Bibliography
+          {t("title")}
         </h1>
-        <p className="text-muted-foreground">
-          Choose a project to manage and check its bibliography.
-        </p>
+        <p className="text-muted-foreground">{t("subtitle")}</p>
       </div>
 
       {projects && projects.length > 0 ? (
@@ -43,15 +43,17 @@ export default async function BibliographyPage() {
           <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
             <ListChecks className="size-6" />
           </div>
-          <h2 className="mt-4 text-lg font-semibold">No projects yet</h2>
+          <h2 className="mt-4 text-lg font-semibold">
+            {t("noProjectsTitle")}
+          </h2>
           <p className="mt-1 max-w-sm text-sm text-muted-foreground">
-            Create a project first, then manage its bibliography here.
+            {t("noProjectsDescription")}
           </p>
           <Link
             href="/projects"
             className="mt-6 text-sm font-medium text-primary hover:underline"
           >
-            Go to projects
+            {t("goToProjects")}
           </Link>
         </div>
       )}

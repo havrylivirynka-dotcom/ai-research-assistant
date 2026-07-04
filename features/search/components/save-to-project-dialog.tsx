@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { Bookmark, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -22,6 +23,7 @@ export function SaveToProjectDialog({
 }: {
   article: NormalizedArticle;
 }) {
+  const t = useTranslations("saveDialog");
   const [open, setOpen] = useState(false);
   const [projects, setProjects] = useState<Project[] | null>(null);
   const [savingId, setSavingId] = useState<string | null>(null);
@@ -59,10 +61,10 @@ export function SaveToProjectDialog({
     setSavingId(null);
 
     if (response.ok) {
-      toast.success("Saved to project.");
+      toast.success(t("savedSuccess"));
       setOpen(false);
     } else {
-      toast.error("Could not save this article.");
+      toast.error(t("savedError"));
     }
   }
 
@@ -71,15 +73,13 @@ export function SaveToProjectDialog({
       <DialogTrigger asChild>
         <Button variant="outline" size="sm">
           <Bookmark className="size-4" />
-          Save
+          {t("trigger")}
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Save to project</DialogTitle>
-          <DialogDescription>
-            Choose which project this source belongs to.
-          </DialogDescription>
+          <DialogTitle>{t("title")}</DialogTitle>
+          <DialogDescription>{t("description")}</DialogDescription>
         </DialogHeader>
 
         {projects === null ? (
@@ -88,11 +88,11 @@ export function SaveToProjectDialog({
           </div>
         ) : projects.length === 0 ? (
           <p className="py-2 text-sm text-muted-foreground">
-            You don&apos;t have any projects yet.{" "}
+            {t("noProjects")}{" "}
             <Link href="/projects" className="font-medium text-foreground">
-              Create one
+              {t("createOne")}
             </Link>{" "}
-            first.
+            {t("createOneSuffix")}
           </p>
         ) : (
           <ul className="max-h-72 space-y-1 overflow-y-auto">

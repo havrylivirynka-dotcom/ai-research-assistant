@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Send, Loader2, PanelLeft } from "lucide-react";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -20,13 +21,6 @@ import type { Database } from "@/types/database";
 type Chat = Database["public"]["Tables"]["ai_chats"]["Row"];
 type ChatMode = "research_assistant" | "man_expert";
 
-const SUGGESTED_PROMPTS = [
-  "Explain methodology",
-  "Improve introduction",
-  "Check bibliography",
-  "Explain МАН rules",
-];
-
 export function ChatWorkspace({
   projectId,
   initialChats,
@@ -34,6 +28,13 @@ export function ChatWorkspace({
   projectId: string;
   initialChats: Chat[];
 }) {
+  const t = useTranslations("chat");
+  const suggestedPrompts = [
+    t("suggestedPrompts.explainMethodology"),
+    t("suggestedPrompts.improveIntroduction"),
+    t("suggestedPrompts.checkBibliography"),
+    t("suggestedPrompts.explainManRules"),
+  ];
   const [chats, setChats] = useState(initialChats);
   const [selectedChatId, setSelectedChatId] = useState<string | null>(
     initialChats[0]?.id ?? null,
@@ -79,7 +80,7 @@ export function ChatWorkspace({
   async function handleDeleteChat(chatId: string) {
     const response = await fetch(`/api/chat/${chatId}`, { method: "DELETE" });
     if (!response.ok) {
-      toast.error("Could not delete this chat.");
+      toast.error(t("deleteChatFailed"));
       return;
     }
     setChats((prev) => prev.filter((c) => c.id !== chatId));
@@ -121,7 +122,7 @@ export function ChatWorkspace({
 
     if (!response.ok || !response.body) {
       const body = await response.json().catch(() => null);
-      toast.error(body?.error?.message ?? "The AI response failed.");
+      toast.error(body?.error?.message ?? t("aiResponseFailed"));
       setIsSending(false);
       setMessages((prev) => prev.filter((m) => m.id !== assistantMessage.id));
       return;
@@ -202,7 +203,7 @@ export function ChatWorkspace({
 
       <Sheet open={isSidebarOpen} onOpenChange={setIsSidebarOpen}>
         <SheetContent side="left" className="w-72 p-0">
-          <SheetTitle className="sr-only">Conversations</SheetTitle>
+          <SheetTitle className="sr-only">{t("conversations")}</SheetTitle>
           <ChatSidebar
             chats={chats}
             selectedChatId={selectedChatId}
@@ -218,7 +219,7 @@ export function ChatWorkspace({
           <Button
             variant="ghost"
             size="icon"
-            aria-label="Show conversations"
+            aria-label={t("showConversations")}
             onClick={() => setIsSidebarOpen(true)}
           >
             <PanelLeft className="size-4" />
@@ -233,10 +234,10 @@ export function ChatWorkspace({
           ) : messages.length === 0 ? (
             <div className="flex h-full flex-col items-center justify-center gap-4 text-center">
               <p className="text-sm text-muted-foreground">
-                Ask about methodology, structure, citations, or МАН rules.
+                {t("emptyStatePrompt")}
               </p>
               <div className="flex flex-wrap justify-center gap-2">
-                {SUGGESTED_PROMPTS.map((prompt) => (
+                {suggestedPrompts.map((prompt) => (
                   <button
                     key={prompt}
                     onClick={() => sendMessage(prompt)}
@@ -268,9 +269,11 @@ export function ChatWorkspace({
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="research_assistant">
-                  Research Assistant
+                  {t("modeSelector.researchAssistant")}
                 </SelectItem>
-                <SelectItem value="man_expert">МАН Expert</SelectItem>
+                <SelectItem value="man_expert">
+                  {t("modeSelector.manExpert")}
+                </SelectItem>
               </SelectContent>
             </Select>
           )}
@@ -283,7 +286,7 @@ export function ChatWorkspace({
                 sendMessage(input);
               }
             }}
-            placeholder="Ask a question..."
+            placeholder={t("askPlaceholder")}
             rows={1}
             className="max-h-32 min-h-10 flex-1 resize-none"
           />
@@ -291,7 +294,7 @@ export function ChatWorkspace({
             type="submit"
             size="icon"
             disabled={isSending || !input.trim()}
-            aria-label="Send message"
+            aria-label={t("sendMessage")}
           >
             {isSending ? (
               <Loader2 className="size-4 animate-spin" />

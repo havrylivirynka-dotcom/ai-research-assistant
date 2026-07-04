@@ -1,1 +1,19 @@
-{}
+{
+  "structure": {
+    "title": "Структура дослідження",
+    "pageSubtitle": "Згенеруйте логічний план, який спрямує вашу роботу — він не напише роботу за вас.",
+    "topicLabel": "Тема дослідження",
+    "topicPlaceholder": "напр. Вплив мікропластику на прісноводні екосистеми",
+    "generateButton": "Згенерувати план",
+    "generating": "Генерація...",
+    "generateFailed": "Не вдалося згенерувати структуру.",
+    "introductionHeading": "Вступ",
+    "chapterHeading": "Розділ {number}: {title}",
+    "conclusionHeading": "Висновок",
+    "appendicesHeading": "Додатки",
+    "addToNotes": "Додати до нотаток проєкту",
+    "saving": "Збереження...",
+    "saveFailed": "Не вдалося зберегти план у нотатках проєкту.",
+    "saveSucceeded": "План додано до нотаток проєкту."
+  }
+}

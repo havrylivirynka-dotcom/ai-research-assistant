@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,13 +16,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { PROJECT_STATUSES } from "@/schemas/project";
-import { STATUS_LABELS } from "@/features/projects/status";
+import { STATUS_LABEL_KEYS } from "@/features/projects/status";
 import type { Database } from "@/types/database";
 
 type Project = Database["public"]["Tables"]["projects"]["Row"];
 
 export function EditProjectForm({ project }: { project: Project }) {
   const router = useRouter();
+  const t = useTranslations("editProjectForm");
+  const tCommon = useTranslations("common");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
@@ -51,7 +54,7 @@ export function EditProjectForm({ project }: { project: Project }) {
 
     if (!response.ok) {
       const body = await response.json().catch(() => null);
-      setError(body?.error?.message ?? "Could not save changes.");
+      setError(body?.error?.message ?? t("genericError"));
       return;
     }
 
@@ -68,18 +71,18 @@ export function EditProjectForm({ project }: { project: Project }) {
       )}
 
       <div className="space-y-2">
-        <Label htmlFor="title">Title</Label>
+        <Label htmlFor="title">{t("titleLabel")}</Label>
         <Input id="title" name="title" defaultValue={project.title} required />
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
-          <Label htmlFor="topic">Research topic</Label>
+          <Label htmlFor="topic">{t("topicLabel")}</Label>
           <Input id="topic" name="topic" defaultValue={project.topic ?? ""} />
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="scienceField">Field of science</Label>
+          <Label htmlFor="scienceField">{t("scienceFieldLabel")}</Label>
           <Input
             id="scienceField"
             name="scienceField"
@@ -89,7 +92,7 @@ export function EditProjectForm({ project }: { project: Project }) {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="status">Status</Label>
+        <Label htmlFor="status">{t("statusLabel")}</Label>
         <Select value={status} onValueChange={setStatus}>
           <SelectTrigger id="status" className="w-56">
             <SelectValue />
@@ -97,7 +100,7 @@ export function EditProjectForm({ project }: { project: Project }) {
           <SelectContent>
             {PROJECT_STATUSES.map((value) => (
               <SelectItem key={value} value={value}>
-                {STATUS_LABELS[value]}
+                {tCommon(STATUS_LABEL_KEYS[value] as Parameters<typeof tCommon>[0])}
               </SelectItem>
             ))}
           </SelectContent>
@@ -105,22 +108,22 @@ export function EditProjectForm({ project }: { project: Project }) {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="description">Notes</Label>
+        <Label htmlFor="description">{t("notesLabel")}</Label>
         <Textarea
           id="description"
           name="description"
           rows={8}
           defaultValue={project.description ?? ""}
-          placeholder="Capture ideas, an outline, or anything worth remembering about this project."
+          placeholder={t("notesPlaceholder")}
         />
       </div>
 
       <div className="flex items-center gap-3">
         <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Saving..." : "Save changes"}
+          {isSubmitting ? t("saving") : t("save")}
         </Button>
         {saved && (
-          <span className="text-sm text-muted-foreground">Saved.</span>
+          <span className="text-sm text-muted-foreground">{t("saved")}</span>
         )}
       </div>
     </form>

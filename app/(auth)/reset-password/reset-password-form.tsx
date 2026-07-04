@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { requestPasswordReset } from "@/features/auth/actions";
 import { initialActionState } from "@/features/auth/types";
 import { FieldError } from "@/features/auth/components/field-error";
@@ -16,6 +17,7 @@ export function ResetPasswordForm() {
     requestPasswordReset,
     initialActionState,
   );
+  const t = useTranslations("resetPassword");
 
   if (state.status === "success") {
     return (
@@ -23,7 +25,7 @@ export function ResetPasswordForm() {
         <span className="mx-auto flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
           <MailCheck className="size-6" />
         </span>
-        <h1 className="text-xl font-semibold">Check your email</h1>
+        <h1 className="text-xl font-semibold">{t("checkEmailTitle")}</h1>
         <p className="text-sm text-muted-foreground">{state.message}</p>
       </div>
     );
@@ -33,11 +35,9 @@ export function ResetPasswordForm() {
     <div className="space-y-6">
       <div className="space-y-1 text-center">
         <h1 className="text-2xl font-semibold tracking-tight">
-          Reset your password
+          {t("title")}
         </h1>
-        <p className="text-sm text-muted-foreground">
-          We&apos;ll email you a link to reset it.
-        </p>
+        <p className="text-sm text-muted-foreground">{t("subtitle")}</p>
       </div>
 
       <form action={formAction} className="space-y-4">
@@ -48,7 +48,7 @@ export function ResetPasswordForm() {
         )}
 
         <div className="space-y-2">
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email">{t("emailLabel")}</Label>
           <Input
             id="email"
             name="email"
@@ -60,13 +60,13 @@ export function ResetPasswordForm() {
         </div>
 
         <Button type="submit" className="w-full" disabled={isPending}>
-          {isPending ? "Sending link..." : "Send reset link"}
+          {isPending ? t("submitting") : t("submit")}
         </Button>
       </form>
 
       <p className="text-center text-sm text-muted-foreground">
         <Link href="/login" className="font-medium text-foreground">
-          Back to sign in
+          {t("backToSignIn")}
         </Link>
       </p>
     </div>

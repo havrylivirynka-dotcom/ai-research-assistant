@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { WidgetCard, WidgetEmptyState } from "./widget-card";
 import { UploadStatusBadge } from "@/features/uploads/components/upload-status-badge";
 
@@ -9,11 +10,13 @@ type UploadRow = {
   projects: { id: string; title: string } | null;
 };
 
-export function UploadStatusWidget({ uploads }: { uploads: UploadRow[] }) {
+export async function UploadStatusWidget({ uploads }: { uploads: UploadRow[] }) {
+  const t = await getTranslations("uploadStatusWidget");
+
   return (
-    <WidgetCard title="Upload status" viewAllHref="/uploads">
+    <WidgetCard title={t("title")} viewAllHref="/uploads">
       {uploads.length === 0 ? (
-        <WidgetEmptyState message="PDFs you upload for analysis will show up here." />
+        <WidgetEmptyState message={t("emptyState")} />
       ) : (
         <ul className="space-y-3">
           {uploads.map((upload) => (

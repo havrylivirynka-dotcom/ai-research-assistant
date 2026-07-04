@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
+import { useTranslations } from "next-intl";
 import { updatePassword } from "@/features/auth/actions";
 import { initialActionState } from "@/features/auth/types";
 import { FieldError } from "@/features/auth/components/field-error";
@@ -14,12 +15,13 @@ export function UpdatePasswordForm() {
     updatePassword,
     initialActionState,
   );
+  const t = useTranslations("updatePassword");
 
   return (
     <div className="space-y-6">
       <div className="space-y-1 text-center">
         <h1 className="text-2xl font-semibold tracking-tight">
-          Choose a new password
+          {t("title")}
         </h1>
       </div>
 
@@ -31,7 +33,7 @@ export function UpdatePasswordForm() {
         )}
 
         <div className="space-y-2">
-          <Label htmlFor="password">New password</Label>
+          <Label htmlFor="password">{t("newPasswordLabel")}</Label>
           <Input
             id="password"
             name="password"
@@ -43,7 +45,9 @@ export function UpdatePasswordForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="confirmPassword">Confirm new password</Label>
+          <Label htmlFor="confirmPassword">
+            {t("confirmPasswordLabel")}
+          </Label>
           <Input
             id="confirmPassword"
             name="confirmPassword"
@@ -55,7 +59,7 @@ export function UpdatePasswordForm() {
         </div>
 
         <Button type="submit" className="w-full" disabled={isPending}>
-          {isPending ? "Updating..." : "Update password"}
+          {isPending ? t("submitting") : t("submit")}
         </Button>
       </form>
     </div>

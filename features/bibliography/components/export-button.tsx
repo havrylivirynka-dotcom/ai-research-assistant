@@ -1,6 +1,7 @@
 "use client";
 
 import { Download } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import type { Database } from "@/types/database";
 
@@ -13,6 +14,8 @@ export function ExportButton({
   references: BibliographyRow[];
   projectTitle: string;
 }) {
+  const tCommon = useTranslations("common");
+
   function handleExport() {
     const content = references
       .map((ref, index) => `${index + 1}. ${ref.reference_text}`)
@@ -34,7 +37,7 @@ export function ExportButton({
       disabled={references.length === 0}
     >
       <Download className="size-4" />
-      Export
+      {tCommon("export")}
     </Button>
   );
 }

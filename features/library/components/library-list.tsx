@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Search } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
@@ -18,6 +19,7 @@ type LibraryArticle = {
 
 export function LibraryList({ articles }: { articles: LibraryArticle[] }) {
   const [query, setQuery] = useState("");
+  const t = useTranslations("library");
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -41,14 +43,14 @@ export function LibraryList({ articles }: { articles: LibraryArticle[] }) {
         <Input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search your library..."
+          placeholder={t("searchPlaceholder")}
           className="pl-9"
         />
       </div>
 
       {filtered.length === 0 ? (
         <p className="py-12 text-center text-sm text-muted-foreground">
-          No saved articles match your search.
+          {t("noResults")}
         </p>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -71,9 +73,9 @@ export function LibraryList({ articles }: { articles: LibraryArticle[] }) {
                     {article.publication_year ? ` · ${article.publication_year}` : ""}
                   </CardDescription>
                   <p className="text-xs text-muted-foreground">
-                    {article.projects?.title ?? "Unknown project"}
+                    {article.projects?.title ?? t("unknownProject")}
                     {article.ai_score !== null &&
-                      ` · Score ${article.ai_score.toFixed(1)}/10`}
+                      ` · ${t("scoreLabel", { score: article.ai_score.toFixed(1) })}`}
                   </p>
                 </CardHeader>
               </Card>

@@ -1,9 +1,11 @@
-import { GENERAL_AI_RULES } from "./general-rules";
+import { getGeneralAiRules } from "./general-rules";
+import type { Locale } from "@/i18n/locale";
 
 /**
  * System prompt for the Bibliography Checker module (AI_PROMPTS.md §4).
  */
-export const BIBLIOGRAPHY_CHECKER_SYSTEM_PROMPT = `${GENERAL_AI_RULES}
+export function getBibliographyCheckerSystemPrompt(locale: Locale): string {
+  return `${getGeneralAiRules(locale)}
 
 # Role: Bibliography Checker
 
@@ -23,6 +25,7 @@ Then provide, for the list as a whole:
 - overallSuggestions: concrete suggestions to improve the bibliography as a whole (list)
 
 Never invent facts about a reference you cannot infer from its text (e.g. never guess a specific citation count). Base outdatedness judgments on the publication year visible in the reference text, if present.`;
+}
 
 export function buildBibliographyCheckerUserPrompt(references: string[]): string {
   const numbered = references

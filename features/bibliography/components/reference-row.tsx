@@ -3,9 +3,11 @@
 import { useState } from "react";
 import { Trash2, AlertTriangle, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { RecommendationBadge } from "@/features/articles/components/recommendation-badge";
+import { SOURCE_TYPE_VALUES } from "@/lib/ai/schemas";
 import type { Database } from "@/types/database";
 
 type BibliographyRow = Database["public"]["Tables"]["bibliography"]["Row"];
@@ -15,6 +17,12 @@ type Analysis = {
   duplicateOfIndex?: number | null;
 } | null;
 
+function isSourceType(
+  value: string,
+): value is (typeof SOURCE_TYPE_VALUES)[number] {
+  return (SOURCE_TYPE_VALUES as readonly string[]).includes(value);
+}
+
 export function ReferenceRow({
   reference,
   index,
@@ -23,6 +31,8 @@ export function ReferenceRow({
   index: number;
 }) {
   const router = useRouter();
+  const t = useTranslations("referenceRow");
+  const tSourceType = useTranslations("sourceType");
   const [isDeleting, setIsDeleting] = useState(false);
   const analysis = reference.ai_analysis as Analysis;
 
@@ -46,7 +56,9 @@ export function ReferenceRow({
         <div className="flex flex-wrap items-center gap-2">
           {reference.source_type && (
             <Badge variant="outline" className="text-[10px]">
-              {reference.source_type.replace("_", " ")}
+              {isSourceType(reference.source_type)
+                ? tSourceType(reference.source_type)
+                : reference.source_type.replace("_", " ")}
             </Badge>
           )}
           {reference.recommendation && (
@@ -55,7 +67,7 @@ export function ReferenceRow({
           {analysis?.isDuplicate && (
             <Badge variant="destructive" className="gap-1 text-[10px]">
               <AlertTriangle className="size-3" />
-              Duplicate of #{(analysis.duplicateOfIndex ?? 0) + 1}
+              {t("duplicateOf", { index: (analysis.duplicateOfIndex ?? 0) + 1 })}
             </Badge>
           )}
           {reference.ai_score !== null && (
@@ -79,7 +91,7 @@ export function ReferenceRow({
         size="icon"
         onClick={handleDelete}
         disabled={isDeleting}
-        aria-label="Delete reference"
+        aria-label={t("deleteAriaLabel")}
         className="shrink-0"
       >
         {isDeleting ? (

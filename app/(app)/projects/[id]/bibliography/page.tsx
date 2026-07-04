@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, ListChecks } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { getProject } from "@/features/projects/queries";
 import { listBibliography } from "@/features/bibliography/queries";
@@ -24,6 +25,7 @@ export async function generateMetadata({
 }
 
 export default async function ProjectBibliographyPage({ params }: PageProps) {
+  const t = await getTranslations("bibliography");
   const { id } = await params;
   const supabase = await createClient();
   const [{ data: project, error }, { data: references }] = await Promise.all([
@@ -55,12 +57,12 @@ export default async function ProjectBibliographyPage({ params }: PageProps) {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">
-            Bibliography
+            {t("title")}
           </h1>
           <p className="text-muted-foreground">
-            {items.length} reference{items.length === 1 ? "" : "s"}
+            {t("referencesCount", { count: items.length })}
             {duplicateCount > 0 &&
-              ` · ${duplicateCount} possible duplicate${duplicateCount === 1 ? "" : "s"}`}
+              ` · ${t("possibleDuplicatesCount", { count: duplicateCount })}`}
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -80,10 +82,9 @@ export default async function ProjectBibliographyPage({ params }: PageProps) {
           <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
             <ListChecks className="size-6" />
           </div>
-          <h2 className="mt-4 text-lg font-semibold">No references yet</h2>
+          <h2 className="mt-4 text-lg font-semibold">{t("emptyTitle")}</h2>
           <p className="mt-1 max-w-sm text-sm text-muted-foreground">
-            Import a reference list or add sources one at a time to check for
-            duplicates, outdated sources and formatting issues.
+            {t("emptyDescription")}
           </p>
         </div>
       ) : (

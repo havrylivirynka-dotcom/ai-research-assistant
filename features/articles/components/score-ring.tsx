@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
 const SIZE = 96;
@@ -13,6 +16,7 @@ function scoreColorClass(score: number): string {
 }
 
 export function ScoreRing({ score }: { score: number }) {
+  const t = useTranslations("articles.scoreRing");
   const clamped = Math.max(0, Math.min(10, score));
   const offset = CIRCUMFERENCE - (clamped / 10) * CIRCUMFERENCE;
 
@@ -21,7 +25,7 @@ export function ScoreRing({ score }: { score: number }) {
       className="relative"
       style={{ width: SIZE, height: SIZE }}
       role="img"
-      aria-label={`Overall score ${clamped.toFixed(1)} out of 10`}
+      aria-label={t("ariaLabel", { score: clamped.toFixed(1) })}
     >
       <svg width={SIZE} height={SIZE} className="-rotate-90">
         <circle
@@ -46,7 +50,9 @@ export function ScoreRing({ score }: { score: number }) {
         <span className="text-xl font-semibold tabular-nums">
           {clamped.toFixed(1)}
         </span>
-        <span className="text-[10px] text-muted-foreground">out of 10</span>
+        <span className="text-[10px] text-muted-foreground">
+          {t("outOf10")}
+        </span>
       </div>
     </div>
   );

@@ -1,14 +1,24 @@
-import { GENERAL_AI_RULES } from "./general-rules";
+import { getGeneralAiRules } from "./general-rules";
+import type { Locale } from "@/i18n/locale";
 
-export const MAN_EXPERT_REFUSAL =
-  "I could not find this information in the uploaded official MАН documentation.";
+const MAN_EXPERT_REFUSAL_BY_LOCALE: Record<Locale, string> = {
+  uk: "Я не знайшов цієї інформації в завантаженій офіційній документації МАН.",
+  en: "I could not find this information in the uploaded official MАН documentation.",
+};
+
+export function getManExpertRefusal(locale: Locale): string {
+  return MAN_EXPERT_REFUSAL_BY_LOCALE[locale];
+}
 
 /**
  * System prompt for the МАН Expert RAG module. This is a strict
  * retrieval-augmented mode: for anything regulated by the official
  * documents, the model must answer only from retrieved context.
  */
-export const MAN_EXPERT_SYSTEM_PROMPT = `${GENERAL_AI_RULES}
+export function getManExpertSystemPrompt(locale: Locale): string {
+  const refusal = getManExpertRefusal(locale);
+
+  return `${getGeneralAiRules(locale)}
 
 # Role: МАН Expert (Retrieval-Augmented)
 
@@ -27,10 +37,11 @@ The following topics are regulated by the official documentation and you MUST an
 Rules you must follow exactly:
 1. If the retrieved context contains the answer, ground your response in it and quote or closely paraphrase the relevant text.
 2. Every answer must cite which document(s) and section(s) you used (the retrieved context tells you the document title and section for each passage).
-3. If the retrieved context does NOT contain the answer to a regulated topic above, respond with exactly this sentence (translated naturally if the conversation is in Ukrainian, but keep the meaning identical): "${MAN_EXPERT_REFUSAL}" — do not guess, do not fill the gap with general knowledge, do not invent a plausible-sounding rule.
+3. If the retrieved context does NOT contain the answer to a regulated topic above, respond with exactly this sentence, in the language you are responding in: "${refusal}" — do not guess, do not fill the gap with general knowledge, do not invent a plausible-sounding rule.
 4. If retrieved passages from different documents contradict each other, explicitly explain the conflict instead of silently picking one.
 5. You may use general academic knowledge ONLY to explain scientific concepts that are NOT regulated by the uploaded documents (e.g. explaining what a hypothesis is), and only after clearly stating that this explanation comes from general academic practice, not the official documentation.
 6. Never fabricate a rule, a section number, or a document name.`;
+}
 
 export function buildRagUserPrompt(context: string, question: string): string {
   return `Retrieved context from the official documentation:\n\n${context}\n\n---\n\nQuestion: ${question}`;

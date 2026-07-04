@@ -1,1 +1,53 @@
-{}
+{
+  "articles": {
+    "recommendation": {
+      "Highly Recommended": "Настійно рекомендовано",
+      "Recommended": "Рекомендовано",
+      "Acceptable": "Прийнятно",
+      "Use With Caution": "Використовувати з обережністю",
+      "Not Recommended": "Не рекомендовано"
+    },
+    "scoreRing": {
+      "ariaLabel": "Загальна оцінка {score} з 10",
+      "outOf10": "з 10"
+    },
+    "categoryScores": {
+      "credibility": "Достовірність",
+      "relevance": "Релевантність",
+      "freshness": "Актуальність",
+      "methodologyQuality": "Якість методології"
+    },
+    "evaluation": {
+      "strengths": "Переваги",
+      "weaknesses": "Недоліки",
+      "risks": "Ризики",
+      "noneNoted": "Не виявлено."
+    },
+    "evaluateButton": {
+      "evaluate": "Оцінити за допомогою AI",
+      "reEvaluate": "Оцінити повторно",
+      "evaluating": "Оцінювання…",
+      "genericError": "Не вдалося оцінити це джерело."
+    },
+    "sourcesList": {
+      "title": "Джерела",
+      "empty": "Ще немає збережених джерел.",
+      "searchLiterature": "Знайти джерела",
+      "emptySuffix": ", щоб додати."
+    },
+    "detailPage": {
+      "abstractTab": "Анотація",
+      "evaluationTab": "Оцінка AI",
+      "metadataTab": "Метадані",
+      "noAbstract": "Для цього джерела анотація недоступна.",
+      "notEvaluated": "Ще не оцінено. Запустіть оцінку AI, щоб отримати показник достовірності та рекомендацію для цього джерела.",
+      "journal": "Журнал",
+      "publisher": "Видавець",
+      "year": "Рік",
+      "citations": "Цитування",
+      "doi": "DOI",
+      "saved": "Збережено",
+      "project": "Проєкт"
+    }
+  }
+}

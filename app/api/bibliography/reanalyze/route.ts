@@ -1,4 +1,5 @@
 import type { NextRequest } from "next/server";
+import { getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { apiError, apiSuccess } from "@/lib/api/response";
 import { rateLimit } from "@/lib/rate-limit";
@@ -48,8 +49,10 @@ export async function POST(request: NextRequest) {
   }
 
   try {
+    const locale = await getLocale();
     const { analysis, inputTokens, outputTokens } = await analyzeBibliography(
       rows.map((row) => row.reference_text),
+      locale,
     );
 
     await logAiUsage(supabase, {

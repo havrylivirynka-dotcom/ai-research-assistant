@@ -4,10 +4,12 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Sparkles, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 
 export function ReanalyzeButton({ projectId }: { projectId: string }) {
   const router = useRouter();
+  const t = useTranslations("reanalyzeButton");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
 
   async function handleClick() {
@@ -23,11 +25,11 @@ export function ReanalyzeButton({ projectId }: { projectId: string }) {
 
     if (!response.ok) {
       const body = await response.json().catch(() => null);
-      toast.error(body?.error?.message ?? "Could not analyze the bibliography.");
+      toast.error(body?.error?.message ?? t("errorFallback"));
       return;
     }
 
-    toast.success("Bibliography re-analyzed.");
+    toast.success(t("successToast"));
     router.refresh();
   }
 
@@ -38,7 +40,7 @@ export function ReanalyzeButton({ projectId }: { projectId: string }) {
       ) : (
         <Sparkles className="size-4" />
       )}
-      {isAnalyzing ? "Analyzing..." : "Re-analyze all"}
+      {isAnalyzing ? t("analyzing") : t("label")}
     </Button>
   );
 }

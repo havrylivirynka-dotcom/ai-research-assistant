@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { ArrowRight, ListChecks } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-export function ProjectBibliographySummary({
+export async function ProjectBibliographySummary({
   projectId,
   count,
   duplicateCount,
@@ -11,10 +12,12 @@ export function ProjectBibliographySummary({
   count: number;
   duplicateCount: number;
 }) {
+  const t = await getTranslations("bibliography");
+
   return (
     <Card className="border-border/60">
       <CardHeader>
-        <CardTitle className="text-base">Bibliography</CardTitle>
+        <CardTitle className="text-base">{t("title")}</CardTitle>
       </CardHeader>
       <CardContent>
         <Link
@@ -27,12 +30,11 @@ export function ProjectBibliographySummary({
             </div>
             <div>
               <p className="text-sm font-medium">
-                {count} reference{count === 1 ? "" : "s"}
+                {t("referencesCount", { count })}
               </p>
               {duplicateCount > 0 && (
                 <p className="text-xs text-destructive">
-                  {duplicateCount} possible duplicate
-                  {duplicateCount === 1 ? "" : "s"}
+                  {t("possibleDuplicatesCount", { count: duplicateCount })}
                 </p>
               )}
             </div>

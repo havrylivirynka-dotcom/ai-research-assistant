@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { ExternalLink, Quote, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -15,6 +18,7 @@ const PROVIDER_LABELS: Record<string, string> = {
 };
 
 export function ResultCard({ article }: { article: NormalizedArticle }) {
+  const t = useTranslations("search");
   return (
     <Card className="border-border/60">
       <CardHeader className="space-y-2">
@@ -35,7 +39,7 @@ export function ResultCard({ article }: { article: NormalizedArticle }) {
           </h3>
           {article.isOpenAccess && (
             <Badge variant="secondary" className="shrink-0">
-              Open Access
+              {t("openAccess")}
             </Badge>
           )}
         </div>
@@ -60,7 +64,7 @@ export function ResultCard({ article }: { article: NormalizedArticle }) {
           {article.publicationYear && <span>{article.publicationYear}</span>}
           <span className="flex items-center gap-1">
             <Quote className="size-3.5" />
-            {article.citations.toLocaleString()} citations
+            {t("citations", { count: article.citations })}
           </span>
           {article.doi && (
             <a

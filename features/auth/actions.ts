@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import {
   syncLocaleFromSettings,
@@ -15,12 +16,34 @@ import {
 } from "@/schemas/auth";
 import type { ActionState } from "./types";
 
-function firstFieldErrors(
+const AUTH_VALIDATION_KEYS = [
+  "emailInvalid",
+  "passwordRequired",
+  "fullNameRequired",
+  "passwordMinLength",
+  "passwordLowercase",
+  "passwordUppercase",
+  "passwordNumber",
+  "passwordsDoNotMatch",
+] as const;
+type AuthValidationKey = (typeof AUTH_VALIDATION_KEYS)[number];
+
+function isAuthValidationKey(key: string): key is AuthValidationKey {
+  return (AUTH_VALIDATION_KEYS as readonly string[]).includes(key);
+}
+
+/** Zod stores short keys (e.g. "emailInvalid") as messages; translate them here. */
+function translateFieldErrors(
   fieldErrors: Record<string, string[] | undefined>,
+  t: Awaited<ReturnType<typeof getTranslations<"authValidation">>>,
 ): Record<string, string[]> {
   const result: Record<string, string[]> = {};
   for (const [key, value] of Object.entries(fieldErrors)) {
-    if (value) result[key] = value;
+    if (value) {
+      result[key] = value.map((messageKey) =>
+        isAuthValidationKey(messageKey) ? t(messageKey) : messageKey,
+      );
+    }
   }
   return result;
 }
@@ -35,9 +58,13 @@ export async function login(
   });
 
   if (!parsed.success) {
+    const t = await getTranslations("authValidation");
     return {
       status: "error",
-      fieldErrors: firstFieldErrors(parsed.error.flatten().fieldErrors),
+      fieldErrors: translateFieldErrors(
+        parsed.error.flatten().fieldErrors,
+        t,
+      ),
     };
   }
 
@@ -45,7 +72,8 @@ export async function login(
   const { data, error } = await supabase.auth.signInWithPassword(parsed.data);
 
   if (error) {
-    return { status: "error", message: "Incorrect email or password." };
+    const t = await getTranslations("login");
+    return { status: "error", message: t("incorrectCredentials") };
   }
 
   if (data.user) {
@@ -68,9 +96,13 @@ export async function register(
   });
 
   if (!parsed.success) {
+    const t = await getTranslations("authValidation");
     return {
       status: "error",
-      fieldErrors: firstFieldErrors(parsed.error.flatten().fieldErrors),
+      fieldErrors: translateFieldErrors(
+        parsed.error.flatten().fieldErrors,
+        t,
+      ),
     };
   }
 
@@ -88,12 +120,13 @@ export async function register(
 
   if (error) {
     console.error("signUp failed", error.code, error.status, error.message);
+    const t = await getTranslations("register");
     return {
       status: "error",
       message:
         error.code === "user_already_exists"
-          ? "An account with this email already exists."
-          : "Could not create your account. Please try again.",
+          ? t("accountExists")
+          : t("genericError"),
     };
   }
 
@@ -107,9 +140,10 @@ export async function register(
     redirect("/dashboard");
   }
 
+  const t = await getTranslations("register");
   return {
     status: "success",
-    message: "Check your inbox to confirm your email address.",
+    message: t("checkInboxMessage"),
   };
 }
 
@@ -146,9 +180,13 @@ export async function requestPasswordReset(
   });
 
   if (!parsed.success) {
+    const t = await getTranslations("authValidation");
     return {
       status: "error",
-      fieldErrors: firstFieldErrors(parsed.error.flatten().fieldErrors),
+      fieldErrors: translateFieldErrors(
+        parsed.error.flatten().fieldErrors,
+        t,
+      ),
     };
   }
 
@@ -159,11 +197,12 @@ export async function requestPasswordReset(
     redirectTo: `${origin}/auth/callback?next=/update-password`,
   });
 
+  const t = await getTranslations("resetPassword");
   // Always return the same message, regardless of whether the account
   // exists, so this endpoint can't be used to enumerate registered emails.
   return {
     status: "success",
-    message: "If an account exists for that email, a reset link is on its way.",
+    message: t("successMessage"),
   };
 }
 
@@ -177,9 +216,13 @@ export async function updatePassword(
   });
 
   if (!parsed.success) {
+    const t = await getTranslations("authValidation");
     return {
       status: "error",
-      fieldErrors: firstFieldErrors(parsed.error.flatten().fieldErrors),
+      fieldErrors: translateFieldErrors(
+        parsed.error.flatten().fieldErrors,
+        t,
+      ),
     };
   }
 
@@ -189,9 +232,10 @@ export async function updatePassword(
   });
 
   if (error) {
+    const t = await getTranslations("updatePassword");
     return {
       status: "error",
-      message: "Could not update your password. Please request a new reset link.",
+      message: t("genericError"),
     };
   }
 

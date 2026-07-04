@@ -62,7 +62,9 @@
     "openMenu": "Open menu",
     "toggleSidebar": "Toggle Sidebar",
     "toggleTheme": "Toggle theme",
-    "account": "Account"
+    "account": "Account",
+    "sidebarLabel": "Sidebar",
+    "sidebarDescription": "Displays the mobile sidebar."
   },
   "language": {
     "label": "Language",
@@ -86,5 +88,16 @@
     "termsOfService": "Terms of Service",
     "contact": "Contact",
     "allRightsReserved": "All rights reserved."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "This page doesn't exist or may have been moved.",
+    "backHome": "Back to home"
+  },
+  "errorPage": {
+    "title": "Something went wrong",
+    "description": "An unexpected error occurred. Try refreshing the page.",
+    "retry": "Try again",
+    "backHome": "Back to home"
   }
 }

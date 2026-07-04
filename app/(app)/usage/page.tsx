@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { listUsage, summarizeUsage } from "@/features/usage/queries";
 import { EndpointBreakdown } from "@/features/usage/components/endpoint-breakdown";
@@ -12,21 +13,20 @@ export default async function UsagePage() {
   const rows = data ?? [];
   const { totalRequests, totalTokens, totalCost, endpointBreakdown } =
     summarizeUsage(rows);
+  const t = await getTranslations("usage");
 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold tracking-tight">AI Usage</h1>
-        <p className="text-muted-foreground">
-          Token usage, requests and estimated cost across every AI feature.
-        </p>
+        <h1 className="text-2xl font-semibold tracking-tight">{t("title")}</h1>
+        <p className="text-muted-foreground">{t("subtitle")}</p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-3">
         <Card className="border-border/60">
           <CardHeader>
             <CardTitle className="text-sm font-medium text-muted-foreground">
-              Total requests
+              {t("totalRequests")}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -38,7 +38,7 @@ export default async function UsagePage() {
         <Card className="border-border/60">
           <CardHeader>
             <CardTitle className="text-sm font-medium text-muted-foreground">
-              Total tokens
+              {t("totalTokens")}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -50,7 +50,7 @@ export default async function UsagePage() {
         <Card className="border-border/60">
           <CardHeader>
             <CardTitle className="text-sm font-medium text-muted-foreground">
-              Estimated cost
+              {t("estimatedCost")}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -63,7 +63,7 @@ export default async function UsagePage() {
 
       <Card className="border-border/60">
         <CardHeader>
-          <CardTitle className="text-base">Usage by feature</CardTitle>
+          <CardTitle className="text-base">{t("usageByFeature")}</CardTitle>
         </CardHeader>
         <CardContent>
           <EndpointBreakdown breakdown={endpointBreakdown} />
@@ -73,7 +73,7 @@ export default async function UsagePage() {
       {rows.length > 0 && (
         <Card className="border-border/60">
           <CardHeader>
-            <CardTitle className="text-base">Recent activity</CardTitle>
+            <CardTitle className="text-base">{t("recentActivity")}</CardTitle>
           </CardHeader>
           <CardContent className="p-0">
             <div className="divide-y divide-border">
@@ -84,7 +84,7 @@ export default async function UsagePage() {
                 >
                   <span>{row.endpoint}</span>
                   <span className="text-muted-foreground">
-                    {row.tokens.toLocaleString()} tokens · $
+                    {row.tokens.toLocaleString()} {t("tokensSuffix")} · $
                     {Number(row.cost).toFixed(4)} ·{" "}
                     {new Date(row.created_at).toLocaleString()}
                   </span>

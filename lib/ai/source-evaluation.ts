@@ -2,10 +2,11 @@ import "server-only";
 import { AI_MODEL, getOpenAiClient } from "./client";
 import { sourceEvaluationSchema, sourceEvaluationJsonSchema } from "./schemas";
 import {
-  SOURCE_EVALUATOR_SYSTEM_PROMPT,
+  getSourceEvaluatorSystemPrompt,
   buildSourceEvaluatorUserPrompt,
 } from "@/prompts/source-evaluator";
 import type { SourceEvaluation } from "./schemas";
+import type { Locale } from "@/i18n/locale";
 
 export type EvaluateSourceInput = {
   title: string;
@@ -17,7 +18,10 @@ export type EvaluateSourceInput = {
   citations?: number | null;
 };
 
-export async function evaluateSource(input: EvaluateSourceInput): Promise<{
+export async function evaluateSource(
+  input: EvaluateSourceInput,
+  locale: Locale,
+): Promise<{
   evaluation: SourceEvaluation;
   inputTokens: number;
   outputTokens: number;
@@ -27,7 +31,7 @@ export async function evaluateSource(input: EvaluateSourceInput): Promise<{
   const response = await client.responses.create({
     model: AI_MODEL,
     input: [
-      { role: "system", content: SOURCE_EVALUATOR_SYSTEM_PROMPT },
+      { role: "system", content: getSourceEvaluatorSystemPrompt(locale) },
       { role: "user", content: buildSourceEvaluatorUserPrompt(input) },
     ],
     text: {

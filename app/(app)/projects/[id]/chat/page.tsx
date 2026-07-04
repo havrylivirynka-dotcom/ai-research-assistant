@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { getProject } from "@/features/projects/queries";
 import { listChats } from "@/features/chat/queries";
@@ -21,6 +22,7 @@ export async function generateMetadata({
 
 export default async function ProjectChatPage({ params }: PageProps) {
   const { id } = await params;
+  const t = await getTranslations("chat");
   const supabase = await createClient();
   const [{ data: project, error }, { data: chats }] = await Promise.all([
     getProject(supabase, id),
@@ -43,7 +45,7 @@ export default async function ProjectChatPage({ params }: PageProps) {
 
       <WorkspaceNav projectId={id} />
 
-      <h1 className="text-2xl font-semibold tracking-tight">AI Assistant</h1>
+      <h1 className="text-2xl font-semibold tracking-tight">{t("title")}</h1>
 
       <ChatWorkspace projectId={id} initialChats={chats ?? []} />
     </div>

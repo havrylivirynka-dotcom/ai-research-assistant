@@ -1,1 +1,42 @@
-{}
+{
+  "search": {
+    "title": "Пошук наукових джерел",
+    "subtitle": "Шукайте одночасно в OpenAlex, CrossRef, Semantic Scholar, arXiv, PubMed і DOAJ.",
+    "placeholder": "Пошук наукової літератури — наприклад, мікропластик у прісноводних екосистемах",
+    "searchButton": "Пошук",
+    "noResults": "Нічого не знайдено. Спробуйте інший запит або послабте фільтри.",
+    "emptyState": "Шукайте одночасно в OpenAlex, CrossRef, Semantic Scholar, arXiv, PubMed і DOAJ.",
+    "searchFailed": "Не вдалося виконати пошук. Спробуйте ще раз.",
+    "previous": "Назад",
+    "next": "Далі",
+    "page": "Сторінка {page}",
+    "openAccess": "Відкритий доступ",
+    "citations": "{count, plural, one {# цитування} few {# цитування} many {# цитувань} other {# цитування}}"
+  },
+  "filters": {
+    "trigger": "Фільтри",
+    "yearFrom": "Рік від",
+    "yearTo": "Рік до",
+    "minCitations": "Мінімум цитувань",
+    "language": "Код мови",
+    "openAccessOnly": "Лише відкритий доступ",
+    "clear": "Скинути фільтри"
+  },
+  "saveDialog": {
+    "trigger": "Зберегти",
+    "title": "Зберегти у проєкт",
+    "description": "Оберіть проєкт, до якого належить це джерело.",
+    "noProjects": "У вас поки немає жодного проєкту.",
+    "createOne": "Створити проєкт",
+    "createOneSuffix": "спочатку.",
+    "savedSuccess": "Збережено у проєкт.",
+    "savedError": "Не вдалося зберегти це джерело."
+  },
+  "analyzeDialog": {
+    "trigger": "Проаналізувати",
+    "analyzing": "Аналіз джерела за допомогою AI…",
+    "tryAgain": "Спробувати ще раз",
+    "close": "Закрити",
+    "genericError": "Не вдалося оцінити це джерело."
+  }
+}

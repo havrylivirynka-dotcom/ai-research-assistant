@@ -1,1 +1,53 @@
-{}
+{
+  "articles": {
+    "recommendation": {
+      "Highly Recommended": "Highly Recommended",
+      "Recommended": "Recommended",
+      "Acceptable": "Acceptable",
+      "Use With Caution": "Use With Caution",
+      "Not Recommended": "Not Recommended"
+    },
+    "scoreRing": {
+      "ariaLabel": "Overall score {score} out of 10",
+      "outOf10": "out of 10"
+    },
+    "categoryScores": {
+      "credibility": "Credibility",
+      "relevance": "Relevance",
+      "freshness": "Freshness",
+      "methodologyQuality": "Methodology quality"
+    },
+    "evaluation": {
+      "strengths": "Strengths",
+      "weaknesses": "Weaknesses",
+      "risks": "Risks",
+      "noneNoted": "None noted."
+    },
+    "evaluateButton": {
+      "evaluate": "Evaluate with AI",
+      "reEvaluate": "Re-evaluate",
+      "evaluating": "Evaluating…",
+      "genericError": "Could not evaluate this source."
+    },
+    "sourcesList": {
+      "title": "Sources",
+      "empty": "No sources saved yet.",
+      "searchLiterature": "Search the literature",
+      "emptySuffix": " to add some."
+    },
+    "detailPage": {
+      "abstractTab": "Abstract",
+      "evaluationTab": "AI Evaluation",
+      "metadataTab": "Metadata",
+      "noAbstract": "No abstract available for this source.",
+      "notEvaluated": "Not evaluated yet. Run the AI evaluation to get a credibility score and recommendation for this source.",
+      "journal": "Journal",
+      "publisher": "Publisher",
+      "year": "Year",
+      "citations": "Citations",
+      "doi": "DOI",
+      "saved": "Saved",
+      "project": "Project"
+    }
+  }
+}

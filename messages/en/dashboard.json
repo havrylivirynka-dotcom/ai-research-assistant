@@ -1,1 +1,28 @@
-{}
+{
+  "dashboard": {
+    "welcomeTitle": "Welcome, {name}",
+    "subtitle": "Here's what's happening across your research."
+  },
+  "recentProjectsWidget": {
+    "title": "Recent projects",
+    "emptyState": "No projects yet. Create one to get started."
+  },
+  "savedArticlesWidget": {
+    "title": "Saved articles",
+    "emptyState": "Sources you save from search will show up here."
+  },
+  "recentSearchesWidget": {
+    "title": "Recent searches",
+    "emptyState": "Your scientific search queries will show up here."
+  },
+  "uploadStatusWidget": {
+    "title": "Upload status",
+    "emptyState": "PDFs you upload for analysis will show up here."
+  },
+  "aiUsageWidget": {
+    "title": "AI usage this month",
+    "requests": "Requests",
+    "tokens": "Tokens",
+    "estCost": "Est. cost"
+  }
+}

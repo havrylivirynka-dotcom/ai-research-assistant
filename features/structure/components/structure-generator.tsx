@@ -4,28 +4,37 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Sparkles, Loader2, ClipboardCopy } from "lucide-react";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import type { ResearchStructure } from "@/lib/ai/schemas";
 
-function formatStructureAsText(structure: ResearchStructure): string {
+function formatStructureAsText(
+  structure: ResearchStructure,
+  labels: {
+    introduction: string;
+    chapter: (number: number, title: string) => string;
+    conclusion: string;
+    appendices: string;
+  },
+): string {
   const lines: string[] = [];
-  lines.push("INTRODUCTION");
+  lines.push(labels.introduction.toUpperCase());
   lines.push(structure.introduction, "");
 
   structure.chapters.forEach((chapter, index) => {
-    lines.push(`CHAPTER ${index + 1}: ${chapter.title.toUpperCase()}`);
+    lines.push(labels.chapter(index + 1, chapter.title).toUpperCase());
     chapter.subsections.forEach((sub) => lines.push(`  - ${sub}`));
     lines.push("");
   });
 
-  lines.push("CONCLUSION");
+  lines.push(labels.conclusion.toUpperCase());
   lines.push(structure.conclusion, "");
 
   if (structure.appendices.length > 0) {
-    lines.push("APPENDICES");
+    lines.push(labels.appendices.toUpperCase());
     structure.appendices.forEach((a) => lines.push(`  - ${a}`));
   }
 
@@ -39,6 +48,7 @@ export function StructureGenerator({
   projectId: string;
   defaultTopic: string;
 }) {
+  const t = useTranslations("structure");
   const router = useRouter();
   const [topic, setTopic] = useState(defaultTopic);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -59,7 +69,7 @@ export function StructureGenerator({
 
     if (!response.ok) {
       const body = await response.json().catch(() => null);
-      toast.error(body?.error?.message ?? "Could not generate a structure.");
+      toast.error(body?.error?.message ?? t("generateFailed"));
       return;
     }
 
@@ -74,7 +84,12 @@ export function StructureGenerator({
     const projectRes = await fetch(`/api/projects/${projectId}`);
     const { project } = await projectRes.json();
     const existingNotes = project?.description ?? "";
-    const outlineText = formatStructureAsText(structure);
+    const outlineText = formatStructureAsText(structure, {
+      introduction: t("introductionHeading"),
+      chapter: (number, title) => t("chapterHeading", { number, title }),
+      conclusion: t("conclusionHeading"),
+      appendices: t("appendicesHeading"),
+    });
     const updatedNotes = existingNotes
       ? `${existingNotes}\n\n--- Generated outline ---\n\n${outlineText}`
       : outlineText;
@@ -88,11 +103,11 @@ export function StructureGenerator({
     setIsSaving(false);
 
     if (!response.ok) {
-      toast.error("Could not save the outline to project notes.");
+      toast.error(t("saveFailed"));
       return;
     }
 
-    toast.success("Outline added to project notes.");
+    toast.success(t("saveSucceeded"));
     router.refresh();
   }
 
@@ -100,12 +115,12 @@ export function StructureGenerator({
     <div className="space-y-6">
       <div className="flex items-end gap-2">
         <div className="flex-1 space-y-2">
-          <Label htmlFor="topic">Research topic</Label>
+          <Label htmlFor="topic">{t("topicLabel")}</Label>
           <Input
             id="topic"
             value={topic}
             onChange={(e) => setTopic(e.target.value)}
-            placeholder="e.g. Impact of microplastics on freshwater ecosystems"
+            placeholder={t("topicPlaceholder")}
           />
         </div>
         <Button
@@ -117,7 +132,7 @@ export function StructureGenerator({
           ) : (
             <Sparkles className="size-4" />
           )}
-          {isGenerating ? "Generating..." : "Generate outline"}
+          {isGenerating ? t("generating") : t("generateButton")}
         </Button>
       </div>
 
@@ -125,7 +140,7 @@ export function StructureGenerator({
         <Card className="border-border/60">
           <CardContent className="space-y-6 pt-6">
             <div>
-              <h3 className="font-semibold">Introduction</h3>
+              <h3 className="font-semibold">{t("introductionHeading")}</h3>
               <p className="mt-1 text-sm text-muted-foreground">
                 {structure.introduction}
               </p>
@@ -134,7 +149,10 @@ export function StructureGenerator({
             {structure.chapters.map((chapter, index) => (
               <div key={index}>
                 <h3 className="font-semibold">
-                  Chapter {index + 1}: {chapter.title}
+                  {t("chapterHeading", {
+                    number: index + 1,
+                    title: chapter.title,
+                  })}
                 </h3>
                 <ul className="mt-1 list-disc space-y-1 pl-4 text-sm text-muted-foreground">
                   {chapter.subsections.map((sub) => (
@@ -145,7 +163,7 @@ export function StructureGenerator({
             ))}
 
             <div>
-              <h3 className="font-semibold">Conclusion</h3>
+              <h3 className="font-semibold">{t("conclusionHeading")}</h3>
               <p className="mt-1 text-sm text-muted-foreground">
                 {structure.conclusion}
               </p>
@@ -153,7 +171,7 @@ export function StructureGenerator({
 
             {structure.appendices.length > 0 && (
               <div>
-                <h3 className="font-semibold">Appendices</h3>
+                <h3 className="font-semibold">{t("appendicesHeading")}</h3>
                 <ul className="mt-1 list-disc space-y-1 pl-4 text-sm text-muted-foreground">
                   {structure.appendices.map((a) => (
                     <li key={a}>{a}</li>
@@ -164,7 +182,7 @@ export function StructureGenerator({
 
             <Button variant="outline" onClick={handleCopyToNotes} disabled={isSaving}>
               <ClipboardCopy className="size-4" />
-              {isSaving ? "Saving..." : "Add to project notes"}
+              {isSaving ? t("saving") : t("addToNotes")}
             </Button>
           </CardContent>
         </Card>

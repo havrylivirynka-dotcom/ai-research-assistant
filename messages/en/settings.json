@@ -1,1 +1,25 @@
-{}
+{
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Manage your profile and preferences.",
+    "profileSection": "Profile",
+    "changeAvatar": "Change avatar",
+    "uploadingAvatar": "Uploading...",
+    "fullNameLabel": "Full name",
+    "emailLabel": "Email",
+    "preferencesSection": "Preferences",
+    "themeLabel": "Theme",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "themeSystem": "System",
+    "languageLabel": "Language",
+    "languageUk": "Українська",
+    "languageEn": "English",
+    "planSection": "Plan",
+    "planFree": "Free",
+    "planPremium": "Premium",
+    "avatarUploadError": "Could not upload avatar.",
+    "saveError": "Could not save settings.",
+    "saveSuccess": "Settings saved."
+  }
+}

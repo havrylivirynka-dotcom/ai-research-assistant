@@ -2,17 +2,19 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
 export function WorkspaceNav({ projectId }: { projectId: string }) {
   const pathname = usePathname();
+  const t = useTranslations("workspaceNav");
   const base = `/projects/${projectId}`;
 
   const tabs = [
-    { href: base, label: "Overview" },
-    { href: `${base}/chat`, label: "AI Chat" },
-    { href: `${base}/bibliography`, label: "Bibliography" },
-    { href: `${base}/structure`, label: "Structure" },
+    { href: base, label: t("overview") },
+    { href: `${base}/chat`, label: t("aiChat") },
+    { href: `${base}/bibliography`, label: t("bibliography") },
+    { href: `${base}/structure`, label: t("structure") },
   ];
 
   return (

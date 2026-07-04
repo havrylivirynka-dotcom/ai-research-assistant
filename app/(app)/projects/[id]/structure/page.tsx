@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { getProject } from "@/features/projects/queries";
 import { StructureGenerator } from "@/features/structure/components/structure-generator";
@@ -22,6 +23,7 @@ export async function generateMetadata({
 
 export default async function ProjectStructurePage({ params }: PageProps) {
   const { id } = await params;
+  const t = await getTranslations("structure");
   const supabase = await createClient();
   const { data: project, error } = await getProject(supabase, id);
 
@@ -43,12 +45,9 @@ export default async function ProjectStructurePage({ params }: PageProps) {
 
       <div>
         <h1 className="text-2xl font-semibold tracking-tight">
-          Research Structure
+          {t("title")}
         </h1>
-        <p className="text-muted-foreground">
-          Generate a logical outline to guide your writing — it won&apos;t
-          write the paper for you.
-        </p>
+        <p className="text-muted-foreground">{t("pageSubtitle")}</p>
       </div>
 
       <StructureGenerator

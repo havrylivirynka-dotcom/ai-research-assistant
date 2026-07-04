@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { FolderKanban } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import {
   Card,
   CardDescription,
@@ -11,7 +12,9 @@ import type { Database } from "@/types/database";
 
 type Project = Database["public"]["Tables"]["projects"]["Row"];
 
-export function ProjectCard({ project }: { project: Project }) {
+export async function ProjectCard({ project }: { project: Project }) {
+  const t = await getTranslations("projects");
+
   return (
     <Link href={`/projects/${project.id}`}>
       <Card className="h-full border-border/60 transition-colors hover:border-primary/40">
@@ -24,7 +27,7 @@ export function ProjectCard({ project }: { project: Project }) {
           </div>
           <CardTitle className="mt-2 line-clamp-1">{project.title}</CardTitle>
           <CardDescription className="line-clamp-2">
-            {project.topic || project.description || "No topic set yet."}
+            {project.topic || project.description || t("noTopic")}
           </CardDescription>
         </CardHeader>
       </Card>

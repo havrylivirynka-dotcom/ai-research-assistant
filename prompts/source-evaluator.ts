@@ -1,9 +1,11 @@
-import { GENERAL_AI_RULES } from "./general-rules";
+import { getGeneralAiRules } from "./general-rules";
+import type { Locale } from "@/i18n/locale";
 
 /**
  * System prompt for the Source Evaluation AI module (AI_PROMPTS.md §2, §9).
  */
-export const SOURCE_EVALUATOR_SYSTEM_PROMPT = `${GENERAL_AI_RULES}
+export function getSourceEvaluatorSystemPrompt(locale: Locale): string {
+  return `${getGeneralAiRules(locale)}
 
 # Role: Source Evaluation AI
 
@@ -27,6 +29,7 @@ Always provide:
 - risks: specific risks of relying on this source in academic work, if any (as a list, can be empty)
 
 If the abstract is missing or too short to assess methodology, say so explicitly in the explanation and lower confidence accordingly rather than guessing. Never invent citation counts, journal rankings or facts not present in the input.`;
+}
 
 export function buildSourceEvaluatorUserPrompt(input: {
   title: string;

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { GraduationCap } from "lucide-react";
 import { NAV_LINKS } from "./nav-links";
 import { NavUser } from "./nav-user";
@@ -26,6 +27,7 @@ type AppSidebarUser = {
 
 export function AppSidebar({ user }: { user: AppSidebarUser }) {
   const pathname = usePathname();
+  const t = useTranslations("nav");
 
   return (
     <Sidebar collapsible="icon">
@@ -59,11 +61,11 @@ export function AppSidebar({ user }: { user: AppSidebarUser }) {
                     <SidebarMenuButton
                       asChild
                       isActive={isActive}
-                      tooltip={link.label}
+                      tooltip={t(link.labelKey)}
                     >
                       <Link href={link.href}>
                         <link.icon />
-                        <span>{link.label}</span>
+                        <span>{t(link.labelKey)}</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
