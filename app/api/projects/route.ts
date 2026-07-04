@@ -46,9 +46,15 @@ export async function POST(request: NextRequest) {
 
   const { data, error } = await createProject(supabase, user.id, parsed.data);
 
-  if (error) {
-    return apiError("INTERNAL_ERROR", "Could not create project.");
-  }
+if (error) {
+  console.error("CREATE PROJECT ERROR:");
+  console.error(error);
+
+  return apiError(
+    "INTERNAL_ERROR",
+    error.message || JSON.stringify(error),
+  );
+}
 
   return apiSuccess({ project: data }, 201);
 }
